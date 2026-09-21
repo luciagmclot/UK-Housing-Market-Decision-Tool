@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>UK Home Buyer's Guide — University of Aberdeen</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --ink:#0A1628; --ink-2:#334155; --muted:#64748B;
+    --rule:#E2E8F0; --rule-2:#CBD5E1;
+    --paper:#FBFCFD; --panel:#FFFFFF;
+    --navy:#1E3A8A; --blue:#3B82F6;
+    --blue-soft:#DBEAFE; --blue-tint:#EFF4FB;
+    --ok:#2F855A; --warn:#B45309; --alert:#B91C1C;
+    --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+  html,body{background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;font-feature-settings:"tnum" 1}
+  body{min-height:100vh;padding:40px 48px 64px;line-height:1.5}
+  .page{max-width:1280px;margin:0 auto}
+
+  /* Masthead */
+  .masthead{border-top:3px solid var(--ink);border-bottom:1px solid var(--rule);padding:14px 0 16px;display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin-bottom:40px}
+  .mast-l{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}
+  .mast-mark{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);font-weight:700}
+  .mast-sep{width:1px;height:14px;background:var(--rule-2);display:inline-block;vertical-align:middle}
+  .mast-c{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .mast-r{font-size:11px;color:var(--muted);letter-spacing:.04em}
+
+  /* Hero */
+  .hero{display:grid;grid-template-columns:1fr 320px;gap:64px;align-items:end;padding-bottom:40px;border-bottom:1px solid var(--rule);margin-bottom:40px}
+  .hero-kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);font-weight:700;margin-bottom:18px}
+  .hero h1{font-size:60px;line-height:1.02;letter-spacing:-0.025em;font-weight:500;color:var(--ink);margin-bottom:20px}
+  .hero h1 em{font-style:normal;color:var(--navy);font-weight:500}
+  .hero-lead{font-size:16px;line-height:1.55;color:var(--ink-2);max-width:620px}
+  .hero-abs{font-size:12px;color:var(--muted);line-height:1.65;border-left:2px solid var(--navy);padding:4px 0 4px 16px}
+  .hero-abs .lbl{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);font-weight:700;margin-bottom:8px;display:block}
+
+  /* Method strip */
+  .method{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:20px 0;margin-bottom:40px}
+  .method-item{padding:0 28px;border-left:1px solid var(--rule)}
+  .method-item:first-child{border-left:none;padding-left:0}
+  .method-n{font-family:var(--mono);font-size:11px;color:var(--navy);letter-spacing:.08em;margin-bottom:8px}
+  .method-t{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px;letter-spacing:-0.01em}
+  .method-d{font-size:12px;color:var(--muted);line-height:1.5}
+
+  /* Tabs */
+  .tab-nav{display:flex;gap:0;border-bottom:1px solid var(--rule);margin-bottom:40px}
+  .tab-btn{padding:12px 28px;border:none;border-bottom:2.5px solid transparent;margin-bottom:-1px;background:transparent;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--muted);cursor:pointer;transition:all .15s;font-family:var(--sans)}
+  .tab-btn.active{color:var(--navy);border-bottom-color:var(--navy)}
+  .tab-btn:hover:not(.active){color:var(--ink)}
+  .tab-panel{display:none}
+  .tab-panel.active{display:block}
+
+  /* Layout */
+  .layout{display:grid;grid-template-columns:340px 1fr;gap:56px;align-items:start}
+
+  /* Section label */
+  .sec-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--navy);font-weight:700;padding-bottom:10px;border-bottom:1px solid var(--ink);margin-bottom:20px;display:flex;justify-content:space-between;align-items:baseline}
+  .sec-label .n{font-family:var(--mono);color:var(--muted);font-weight:400;letter-spacing:.04em}
+
+  /* Sidebar / Form */
+  .sidebar{position:sticky;top:24px}
+  .field{padding:14px 0;border-bottom:1px solid var(--rule)}
+  .field:last-of-type{border-bottom:none}
+  .field label{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;color:var(--ink-2);margin-bottom:8px;font-weight:500}
+  .field label .hint{font-size:10px;color:var(--muted);font-weight:400;letter-spacing:.02em}
+  .input-wrap{position:relative}
+  .input-prefix{position:absolute;left:0;top:50%;transform:translateY(-50%);color:var(--muted);font-family:var(--mono);font-size:14px;pointer-events:none}
+  input[type=text],input[type=number],select{width:100%;background:transparent;border:none;border-bottom:1px solid var(--rule-2);padding:6px 0 8px 18px;font-family:var(--mono);font-size:17px;color:var(--ink);outline:none;transition:border-color .15s;appearance:none;-webkit-appearance:none;font-variant-numeric:tabular-nums}
+  select{padding-left:0;font-family:var(--sans);font-size:14px;cursor:pointer;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none'><path d='M1 1l4 4 4-4' stroke='%2364748B' stroke-width='1.2' stroke-linecap='round'/></svg>");background-repeat:no-repeat;background-position:right 2px center;padding-right:20px}
+  input:focus,select:focus{border-color:var(--navy)}
+  input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+
+  /* Ranges */
+  .range-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+  .range-head .val{font-family:var(--mono);font-size:15px;color:var(--navy);font-weight:600;font-variant-numeric:tabular-nums}
+  .range-wrap{position:relative;height:22px}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;background:transparent;position:absolute;top:0;left:0;height:22px;margin:0;padding:0;cursor:pointer}
+  input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--rule-2);margin-top:10px}
+  input[type=range]::-moz-range-track{height:2px;background:var(--rule-2)}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;background:var(--navy);border-radius:50%;margin-top:-6px;border:2px solid var(--paper);box-shadow:0 0 0 1px var(--navy)}
+  input[type=range]::-moz-range-thumb{width:14px;height:14px;background:var(--navy);border-radius:50%;border:2px solid var(--paper);box-shadow:0 0 0 1px var(--navy)}
+  .range-ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:6px;font-variant-numeric:tabular-nums}
+
+  /* Button */
+  .btn-run{width:100%;margin-top:20px;background:var(--navy);color:#fff;border:none;padding:14px 0;font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .15s;display:flex;justify-content:center;align-items:center;gap:10px}
+  .btn-run:hover{background:#152b66}
+  .btn-run .arr{font-family:var(--mono);font-weight:400}
+
+  /* Results */
+  .results{display:flex;flex-direction:column;gap:48px}
+
+  /* Verdict hero */
+  .verdict{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:end;padding-bottom:36px;border-bottom:1px solid var(--rule)}
+  .verdict-l{min-width:0}
+  .verdict-kick{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em;margin-bottom:14px;display:flex;gap:14px;flex-wrap:wrap}
+  .verdict-kick strong{color:var(--ink);font-weight:600}
+  .verdict-word{font-size:80px;line-height:.95;letter-spacing:-0.035em;font-weight:500;margin-bottom:14px}
+  .verdict-word.ok{color:var(--ok)}.verdict-word.warn{color:var(--warn)}.verdict-word.alert{color:var(--alert)}.verdict-word.blue{color:var(--navy)}
+  .verdict-sub{font-size:15px;color:var(--ink-2);line-height:1.55;max-width:540px}
+  .verdict-sub strong{color:var(--ink);font-weight:600}
+
+  /* Score dial */
+  .score{display:flex;flex-direction:column;align-items:center;gap:8px;padding-left:40px;border-left:1px solid var(--rule)}
+  .score-dial{position:relative;width:130px;height:130px}
+  .score-dial svg{transform:rotate(-90deg)}
+  .score-dial .t{stroke:var(--rule);fill:none;stroke-width:2}
+  .score-dial .f{fill:none;stroke-width:2;stroke-linecap:round;transition:stroke-dashoffset .8s cubic-bezier(.22,.61,.36,1)}
+  .score-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .score-num{font-size:42px;font-weight:500;letter-spacing:-0.03em;line-height:1;font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .score-of{font-size:11px;color:var(--muted);margin-top:2px;font-family:var(--mono);letter-spacing:.1em}
+  .score-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-top:4px}
+
+  /* Key figures */
+  .figs{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+  .fig{padding:22px 26px;border-left:1px solid var(--rule)}
+  .fig:first-child{border-left:none;padding-left:0}
+  .fig-l{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:12px}
+  .fig-v{font-size:32px;font-weight:500;letter-spacing:-0.02em;line-height:1;font-family:var(--mono);font-variant-numeric:tabular-nums;margin-bottom:8px}
+  .fig-v small{font-size:16px;color:var(--muted)}
+  .fig-d{font-size:12px;color:var(--muted);line-height:1.4}
+  .fig-d strong{color:var(--ink-2);font-weight:600}
+
+  /* Bar chart */
+  .bar-frame{position:relative;height:130px;margin:28px 0 10px}
+  .bar-axis{position:absolute;left:0;right:0;bottom:38px;height:1px;background:var(--ink)}
+  .bar-iqr{position:absolute;bottom:38px;height:34px;background:var(--blue-soft);border-top:1px solid var(--navy);border-bottom:1px solid var(--navy);transform:translateY(-50%)}
+  .bar-median{position:absolute;bottom:38px;width:2px;height:52px;background:var(--navy);transform:translate(-50%,-50%) translateY(-26px)}
+  .bar-median-lbl{position:absolute;bottom:100px;transform:translateX(-50%);font-family:var(--mono);font-size:10px;color:var(--navy);font-weight:600;white-space:nowrap}
+  .bar-median-lbl::after{content:"";position:absolute;top:14px;left:50%;width:1px;height:6px;background:var(--navy)}
+  .bar-price{position:absolute;bottom:20px;width:13px;height:13px;transform:translate(-50%,50%) rotate(45deg)}
+  .bar-price.ok{background:var(--ok)}.bar-price.warn{background:var(--warn)}.bar-price.alert{background:var(--alert)}.bar-price.navy{background:var(--navy)}.bar-price.blue{background:var(--navy)}
+  .bar-price-lbl{position:absolute;bottom:2px;transform:translateX(-50%);font-family:var(--mono);font-size:11px;font-weight:600;white-space:nowrap}
+  .bar-price-lbl.ok{color:var(--ok)}.bar-price-lbl.warn{color:var(--warn)}.bar-price-lbl.alert{color:var(--alert)}.bar-price-lbl.navy{color:var(--navy)}.bar-price-lbl.blue{color:var(--navy)}
+  .bar-axis-labels{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--muted);padding-top:6px;font-variant-numeric:tabular-nums}
+  .bar-legend{display:flex;gap:24px;flex-wrap:wrap;margin-top:20px;padding-top:16px;border-top:1px solid var(--rule);font-size:12px;color:var(--muted)}
+  .bar-legend .item{display:flex;align-items:center;gap:8px}
+  .bar-legend .sq{width:14px;height:10px;background:var(--blue-soft);border:1px solid var(--navy)}
+  .bar-legend .ln{width:14px;height:2px;background:var(--navy)}
+  .bar-legend .dm{width:8px;height:8px;transform:rotate(45deg);background:var(--ink)}
+
+  /* Peer table */
+  .rank-table{width:100%;border-collapse:collapse}
+  .rank-table th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:left;padding:10px 0;border-bottom:1px solid var(--ink);font-family:var(--sans)}
+  .rank-table th.n{text-align:right}
+  .rank-table td{padding:10px 0;border-bottom:1px solid var(--rule);font-size:13px;color:var(--ink-2)}
+  .rank-table td.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .rank-table tr.you td{color:var(--navy);font-weight:600;background:var(--blue-tint)}
+  .rank-table tr.you td:first-child{padding-left:10px;position:relative}
+  .rank-table tr.you td:first-child::before{content:"▸";position:absolute;left:-2px;color:var(--navy)}
+  .td-bar{width:28%;padding-right:12px}
+  .mini-bar{height:4px;background:var(--rule);position:relative}
+  .mini-bar .fill{position:absolute;top:0;left:0;bottom:0;background:var(--navy)}
+  tr.you .mini-bar .fill{background:var(--blue)}
+
+  /* Affordability */
+  .afford-grid{display:grid;grid-template-columns:1fr 260px;gap:48px;align-items:center}
+  .afford-bar{position:relative;height:30px;background:linear-gradient(90deg,#DCFCE7 0%,#DCFCE7 60%,#FEF3C7 60%,#FEF3C7 80%,#FEE2E2 80%,#FEE2E2 100%);border:1px solid var(--rule-2)}
+  .afford-zones{display:flex;font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:6px;letter-spacing:.04em}
+  .afford-zones .z.ok{width:60%;color:var(--ok)}.afford-zones .z.mid{width:20%;color:var(--warn)}.afford-zones .z.bad{width:20%;color:var(--alert)}
+  .afford-marker{position:absolute;top:-6px;bottom:-6px;width:3px;background:var(--ink);transform:translateX(-50%)}
+  .afford-marker::before{content:"";position:absolute;top:-8px;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--ink)}
+  .afford-read .big{display:block;font-family:var(--mono);font-size:38px;font-weight:500;letter-spacing:-0.02em;margin-bottom:6px;font-variant-numeric:tabular-nums}
+  .afford-read{font-size:13px;color:var(--ink-2);line-height:1.6}
+  .afford-read strong{color:var(--ink);font-weight:600}
+
+  /* Formula */
+  .formula{background:var(--blue-tint);border-left:3px solid var(--navy);padding:20px 24px;margin-top:32px;font-family:var(--mono);font-size:13px;color:var(--ink-2);line-height:1.8;letter-spacing:.01em}
+  .formula .eq{font-size:15px;color:var(--ink);margin:6px 0}
+  .formula var{font-style:italic;color:var(--navy);font-weight:600}
+
+  /* Callout */
+  .callout{background:var(--blue-tint);border-left:3px solid var(--navy);padding:16px 20px;font-size:13px;color:var(--ink-2);line-height:1.65;margin-top:24px}
+  .callout strong{color:var(--ink);font-weight:600}
+  .callout.warn{background:#FEF7E6;border-left-color:var(--warn)}
+  .callout.alert{background:#FEF1F1;border-left-color:var(--alert)}
+
+  /* Stress test */
+  .stress-row{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px;color:var(--ink-2)}
+  .stress-row:last-child{border-bottom:none}
+  .stress-row .sv{font-family:var(--mono);font-size:15px;font-weight:600;color:var(--ink)}
+  .stress-row.warn .sv{color:var(--warn)}.stress-row.alert .sv{color:var(--alert)}
+
+  /* Forecast */
+  .fcast-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-bottom:24px}
+  .fcast-box{padding:20px 24px;border-left:1px solid var(--rule)}
+  .fcast-box:first-child{border-left:none;padding-left:0}
+
+  /* Probability split */
+  .prob-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:18px}
+  .prob-box{padding:20px 24px;border-left:1px solid var(--rule)}
+  .prob-box:first-child{border-left:none;padding-left:0}
+
+  /* Warnings list */
+  .warn-list{margin-top:8px;padding:0;list-style:none}
+  .warn-list li{padding:10px 0 10px 28px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--ink-2);position:relative;line-height:1.5}
+  .warn-list li::before{content:"!";position:absolute;left:0;top:10px;width:18px;height:18px;background:var(--warn);color:#fff;border-radius:50%;font-weight:700;font-size:11px;display:flex;align-items:center;justify-content:center;font-family:var(--mono)}
+  .warn-list li:last-child{border-bottom:none}
+  .warn-list.empty li::before{background:var(--ok);content:"✓"}
+
+  /* Narrative */
+  .narrative{display:flex;flex-direction:column;gap:14px;font-size:14px;color:var(--ink-2);line-height:1.65}
+  .narrative p{margin:0}
+  .narrative p strong{color:var(--ink);font-weight:600}
+  .narrative .lead{font-size:15px;color:var(--ink);font-weight:500}
+
+  /* Badge */
+  .badge{display:inline-block;padding:3px 10px;font-size:11px;font-weight:600;letter-spacing:.05em;font-family:var(--sans)}
+  .badge.ok{background:#DCFCE7;color:var(--ok)}.badge.warn{background:#FEF3C7;color:var(--warn)}.badge.alert{background:#FEE2E2;color:var(--alert)}.badge.blue{background:var(--blue-soft);color:var(--navy)}
+
+  /* National compare strip */
+  .nat-strip{position:relative;height:64px;margin:24px 0 8px}
+  .nat-axis{position:absolute;left:0;right:0;top:30px;height:1px;background:var(--ink)}
+  .nat-bar{position:absolute;top:22px;height:16px;background:var(--blue-soft);opacity:.6}
+  .nat-tick{position:absolute;top:20px;width:2px;height:20px}
+  .nat-lbl{position:absolute;font-size:9px;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;transform:translateX(-50%)}
+
+  /* Empty state */
+  .empty{padding:72px 40px;text-align:center;color:var(--muted);border:1px dashed var(--rule-2)}
+  .empty h3{font-size:20px;font-weight:500;color:var(--ink);margin-bottom:10px;letter-spacing:-0.01em}
+  .empty p{font-size:13px;line-height:1.6;max-width:400px;margin:0 auto}
+
+  /* Footer */
+  .foot{margin-top:64px;padding:20px 0;border-top:1px solid var(--rule);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:11px;color:var(--muted);letter-spacing:.02em}
+  .foot .mark{font-weight:700;color:var(--ink);letter-spacing:.06em;text-transform:uppercase;font-size:10px}
+
+  /* Region Compare */
+  .mode-toggle{display:flex;border:1px solid var(--rule-2);overflow:hidden}
+  .mode-btn{flex:1;padding:8px 0;border:none;background:transparent;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--muted);cursor:pointer;font-family:var(--sans)}
+  .mode-btn.active{background:var(--navy);color:#fff}
+  .tag-pool{display:flex;flex-wrap:wrap;gap:6px;min-height:26px;margin-bottom:8px}
+  .r-tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border:1.5px solid;font-size:11px;font-weight:600;letter-spacing:.06em;font-family:var(--sans)}
+  .r-tag-x{border:none;background:none;cursor:pointer;font-size:13px;line-height:1;padding:0;color:inherit;opacity:.7}
+  .r-tag-x:hover{opacity:1}
+  .sidebar-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px}
+  .sidebar-title{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--navy);font-weight:700}
+  .sidebar-num{font-family:var(--mono);font-size:11px;color:var(--muted)}
+  /* Figs (shared with Region Compare stats) */
+  .figs{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+  .fig{padding:22px 26px;border-left:1px solid var(--rule)}
+  .fig:first-child{border-left:none;padding-left:0}
+  .fig-l{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:12px}
+  .fig-v{font-size:32px;font-weight:500;letter-spacing:-0.02em;line-height:1;font-family:var(--mono);font-variant-numeric:tabular-nums;margin-bottom:8px}
+  .fig-v small{font-size:16px;color:var(--muted)}
+  .fig-d{font-size:12px;color:var(--muted);line-height:1.4}
+  .fig-d strong{color:var(--ink-2);font-weight:600}
+  .callout{background:var(--blue-tint);border-left:3px solid var(--navy);padding:16px 20px;font-size:13px;color:var(--ink-2);line-height:1.65;margin-top:24px}
+  .callout strong{color:var(--ink);font-weight:600}
+  /* Hover tooltip */
+  .rc-tooltip{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--rule-2);padding:10px 14px;font-size:11px;font-family:var(--sans);line-height:1.7;box-shadow:0 4px 16px rgba(0,0,0,.08);white-space:nowrap;z-index:10;display:none}
+  .rc-chart-wrap{position:relative;border:1px solid var(--rule)}
+
+  /* Animations */
+  .fade-in{animation:fi .4s ease both}
+  .fade-in:nth-child(1){animation-delay:0s}.fade-in:nth-child(2){animation-delay:.07s}
+  .fade-in:nth-child(3){animation-delay:.14s}.fade-in:nth-child(4){animation-delay:.21s}
+  .fade-in:nth-child(5){animation-delay:.28s}.fade-in:nth-child(6){animation-delay:.35s}
+  .fade-in:nth-child(7){animation-delay:.42s}.fade-in:nth-child(8){animation-delay:.49s}
+  .fade-in:nth-child(9){animation-delay:.56s}.fade-in:nth-child(10){animation-delay:.63s}
+  @keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+  /* Responsive */
+  @media(max-width:1000px){.layout{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.method{grid-template-columns:repeat(2,1fr)}.method-item:nth-child(3){border-left:none;padding-left:0}}
+  @media(max-width:760px){body{padding:20px 16px 40px}.figs{grid-template-columns:repeat(2,1fr)}.fig:nth-child(3){border-left:none;padding-left:0}.verdict{grid-template-columns:1fr}.score{padding-left:0;border-left:none;border-top:1px solid var(--rule);padding-top:20px}.afford-grid{grid-template-columns:1fr}.fcast-grid{grid-template-columns:1fr}.prob-grid{grid-template-columns:1fr}.hero h1{font-size:38px}.verdict-word{font-size:52px}.tab-btn{padding:10px 14px;font-size:10px}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- Masthead -->
+<div class="masthead">
+  <div class="mast-l">
+    <span class="mast-mark">University of Aberdeen</span>
+    <span class="mast-sep"></span>
+    <span class="mast-c">School of Mathematics · Final Year Project · 2026</span>
+  </div>
+  <div class="mast-r" id="mastDate">Vol. I · Iss. 01</div>
+</div>
+
+<!-- Hero -->
+<header class="hero">
+  <div>
+    <div class="hero-kicker">A Statistical Framework</div>
+    <h1>An empirical guide to <em>buying property</em> across the United Kingdom.</h1>
+    <p class="hero-lead">A V4 housing-decision model: the listed price is positioned against county-level quartile statistics, the loan and affordability are derived from a standard amortisation, and the 5-year outlook is simulated using Geometric Brownian Motion calibrated to the local historical log-return and volatility.</p>
+  </div>
+  <aside class="hero-abs">
+    <span class="lbl">Abstract</span>
+    The composite score combines (i) price fairness against county quartiles, (ii) payment-to-income ratio under FCA thresholds, (iii) loan-to-value, (iv) historical CAGR, (v) volatility, and (vi) the simulated probability of price appreciation over 5 years. Score is bounded in [0, 100] and mapped to a four-level recommendation.
+  </aside>
+</header>
+
+<!-- Method strip -->
+<div class="method">
+  <div class="method-item">
+    <div class="method-n">§ 01</div>
+    <div class="method-t">Area Explorer</div>
+    <div class="method-d">County statistics, price trends, and national comparison.</div>
+  </div>
+  <div class="method-item">
+    <div class="method-n">§ 02</div>
+    <div class="method-t">Property Assessment</div>
+    <div class="method-d">Full V4 model: fairness, affordability, LTV, forecast, stress test.</div>
+  </div>
+  <div class="method-item">
+    <div class="method-n">§ 03</div>
+    <div class="method-t">Mortgage Planner</div>
+    <div class="method-d">Amortisation breakdown, stress test and 5-yr Monte Carlo forecast.</div>
+  </div>
+  <div class="method-item">
+    <div class="method-n">§ 04</div>
+    <div class="method-t">Region Compare</div>
+    <div class="method-d">REIT regional model · 12 UK regions · 2005–2026 price history.</div>
+  </div>
+</div>
+
+<!-- Tab navigation -->
+<nav class="tab-nav">
+  <button class="tab-btn" data-tab="area">§ 01 · Area Explorer</button>
+  <button class="tab-btn active" data-tab="pricing">§ 02 · Property Assessment</button>
+  <button class="tab-btn" data-tab="mortgage">§ 03 · Mortgage Planner</button>
+  <button class="tab-btn" data-tab="compare">§ 04 · Region Compare</button>
+</nav>
+
+<!-- ════════════════════════════════════════════════
+     TAB 1 — AREA EXPLORER
+════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel-area">
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sec-label">Select Area <span class="n">§01</span></div>
+      <div class="field">
+        <label>County <span class="hint" id="countyChip"></span></label>
+        <select id="sel-area"></select>
+      </div>
+      <button class="btn-run" id="btn-area">Explore area <span class="arr">→</span></button>
+    </aside>
+    <main id="results-area">
+      <div class="empty">
+        <h3>Select a county to begin</h3>
+        <p>Choose a county from the panel to explore local market statistics, price trends, and mortgage estimates.</p>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     TAB 2 — PROPERTY ASSESSMENT (V4 main flow)
+════════════════════════════════════════════════ -->
+<div class="tab-panel active" id="panel-pricing">
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sec-label">Inputs <span class="n">§02 · V4</span></div>
+      <div class="field">
+        <label>County <span class="hint" id="countyCount2"></span></label>
+        <select id="sel-pricing"></select>
+      </div>
+      <div class="field">
+        <label>Listed price <span class="hint">GBP</span></label>
+        <div class="input-wrap"><span class="input-prefix">£</span>
+          <input type="number" id="askingPrice" value="350000" min="0" step="1000"/></div>
+      </div>
+      <div class="field">
+        <label>Annual gross income <span class="hint">GBP / yr</span></label>
+        <div class="input-wrap"><span class="input-prefix">£</span>
+          <input type="number" id="income" value="75000" min="0" step="1000"/></div>
+      </div>
+      <div class="field">
+        <label>Deposit <span class="hint">GBP</span></label>
+        <div class="input-wrap"><span class="input-prefix">£</span>
+          <input type="number" id="deposit" value="50000" min="0" step="1000"/></div>
+      </div>
+      <div class="field">
+        <div class="range-head"><label style="margin:0">Mortgage rate</label><span class="val" id="rateDisplay">5.2%</span></div>
+        <div class="range-wrap"><input type="range" id="rateSlider" min="1" max="10" step="0.1" value="5.2"/></div>
+        <div class="range-ticks"><span>1.0%</span><span>5.5%</span><span>10.0%</span></div>
+      </div>
+      <div class="field">
+        <div class="range-head"><label style="margin:0">Term</label><span class="val" id="yearsDisplay">25 yrs</span></div>
+        <div class="range-wrap"><input type="range" id="yearsSlider" min="5" max="35" step="1" value="25"/></div>
+        <div class="range-ticks"><span>5 yrs</span><span>20 yrs</span><span>35 yrs</span></div>
+      </div>
+      <button class="btn-run" id="analyseBtn">Run V4 assessment <span class="arr">→</span></button>
+    </aside>
+    <main class="results" id="results-pricing">
+      <div class="empty">
+        <h3>Run an assessment</h3>
+        <p>Select a county and enter your asking price, income, deposit, mortgage rate and term. The model returns a single integrated buyer assessment combining local price fairness, affordability, leverage, market trend, volatility and a 5-year Monte Carlo forecast.</p>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     TAB 3 — MORTGAGE PLANNER
+════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel-mortgage">
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sec-label">Your Details <span class="n">§03</span></div>
+      <div class="field">
+        <label>Property price <span class="hint">GBP</span></label>
+        <div class="input-wrap"><span class="input-prefix">£</span>
+          <input type="number" id="m-price" value="350000" min="0" step="1000"/></div>
+      </div>
+      <div class="field">
+        <label>Deposit <span class="hint">GBP</span></label>
+        <div class="input-wrap"><span class="input-prefix">£</span>
+          <input type="number" id="m-deposit" value="50000" min="0" step="1000"/></div>
+      </div>
+      <div class="field">
+        <label>Annual gross income <span class="hint">GBP / yr</span></label>
+        <div class="input-wrap"><span class="input-prefix">£</span>
+          <input type="number" id="m-income" value="75000" min="0" step="1000"/></div>
+      </div>
+      <div class="field">
+        <div class="range-head"><label style="margin:0">Interest rate</label><span class="val" id="m-rate-val">5.2%</span></div>
+        <div class="range-wrap"><input type="range" id="m-rate" min="1" max="10" step="0.1" value="5.2"/></div>
+        <div class="range-ticks"><span>1.0%</span><span>5.5%</span><span>10.0%</span></div>
+      </div>
+      <div class="field">
+        <div class="range-head"><label style="margin:0">Loan term</label><span class="val" id="m-term-val">25 yrs</span></div>
+        <div class="range-wrap"><input type="range" id="m-term" min="5" max="35" step="1" value="25"/></div>
+        <div class="range-ticks"><span>5 yrs</span><span>20 yrs</span><span>35 yrs</span></div>
+      </div>
+      <div class="field">
+        <label>County <span class="hint">optional · for 5-yr forecast</span></label>
+        <select id="m-county"></select>
+      </div>
+      <button class="btn-run" id="btn-mortgage">Calculate <span class="arr">→</span></button>
+    </aside>
+    <main class="results" id="results-mortgage">
+      <div class="empty">
+        <h3>Enter your details</h3>
+        <p>Fill in your property price, deposit, income and rate to see your full mortgage breakdown and 5-year outlook.</p>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     TAB 4 — REGION COMPARE
+════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel-compare">
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <div class="sidebar-title">Compare Regions</div>
+        <div class="sidebar-num" id="rcCountChip">0 selected</div>
+      </div>
+      <div class="field">
+        <label>Mode</label>
+        <div class="mode-toggle" id="rc-mode-toggle">
+          <button class="mode-btn active" data-mode="regions">UK Regions</button>
+          <button class="mode-btn" data-mode="counties">Counties</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Areas <span class="hint">up to 4</span></label>
+        <div class="tag-pool" id="rc-tags"></div>
+        <select id="rc-add"><option value="">— add area —</option></select>
+      </div>
+      <div class="field">
+        <label>Metric</label>
+        <select id="rc-metric">
+          <option value="index">Growth index (base = 100)</option>
+          <option value="price">Average price (£)</option>
+          <option value="gap">Fair value gap (%) — regions only</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Time period</label>
+        <select id="rc-period">
+          <option value="all">Full history</option>
+          <option value="postgfc">Post-GFC (since 2010)</option>
+          <option value="postpan">Post-pandemic (since 2020)</option>
+        </select>
+      </div>
+      <button class="btn-run" id="btn-compare">Compare <span class="arr">→</span></button>
+    </aside>
+    <main class="results" id="results-compare">
+      <div class="empty">
+        <h3>Select areas to compare</h3>
+        <p>Add up to 4 UK regions or counties and compare their price growth, absolute levels, or fair value gaps over time. Regions go back to 2005; counties show 2021–2026.</p>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="foot">
+  <div><span class="mark">University of Aberdeen</span> · School of Mathematics · Final Year Project · 2026</div>
+  <div id="footstamp">Data: HM Land Registry · 108 counties · V4 county statistics pre-computed</div>
+</footer>
+
+</div><!-- .page -->
+
+<script src="county_stats.js"></script>
+<script src="reit_data.js"></script>
+
+<script>
+// ════════════════════════════════════════════════════════════════
+// Guard: data must come from the externally-loaded county_stats.js
+// (no RAW_STATS embedded; no synthetic trends; COUNTY_STATS is NOT
+// redefined in this HTML file).
+// ════════════════════════════════════════════════════════════════
+if (typeof COUNTY_STATS === 'undefined') {
+  document.body.innerHTML = `
+    <div style="max-width:700px;margin:4rem auto;padding:2rem;border:1px solid #CBD5E1;font-family:Arial,sans-serif">
+      <h2>county_stats.js not found</h2>
+      <p>
+        This file must be in the same folder as this HTML file.
+        It should be exported from Housing Market v4.ipynb and define COUNTY_STATS.
+      </p>
+    </div>`;
+  throw new Error('COUNTY_STATS not defined');
+}
+
+// ── Helpers ───────────────────────────────────────────────────
+const tc  = s => s.toLowerCase().replace(/(^|\s|-)\w/g, m => m.toUpperCase());
+const fmt = n => '£' + Math.round(n).toLocaleString('en-GB');
+const fmtK = n => n >= 1e6 ? '£' + (n/1e6).toFixed(2) + 'M' : n >= 1e3 ? '£' + Math.round(n/1e3) + 'k' : '£' + Math.round(n);
+const clamp = (v,lo,hi) => Math.min(hi, Math.max(lo, v));
+const bpct  = (v,lo,hi) => Math.max(2, Math.min(98, (v-lo)/(hi-lo)*100));
+const pct   = (x,d=1) => (x*100).toFixed(d) + '%';
+
+// ── National stats ────────────────────────────────────────────
+const counties   = Object.keys(COUNTY_STATS).sort();
+const allMedians = counties.map(c => COUNTY_STATS[c].median).sort((a,b)=>a-b);
+const natMedian  = allMedians[Math.floor(allMedians.length/2)];
+const natMin = allMedians[0], natMax = allMedians[allMedians.length-1];
+const totalSales = Object.values(COUNTY_STATS).reduce((s,c)=>s+c.count,0);
+const allRows    = Object.entries(COUNTY_STATS).map(([n,s])=>({name:n,median:s.median})).sort((a,b)=>a.median-b.median);
+const maxMed     = Math.max(...allRows.map(r=>r.median));
+
+// ── Populate selects ─────────────────────────────────────────
+['sel-area','sel-pricing','m-county'].forEach(id => {
+  const sel = document.getElementById(id);
+  if (id === 'm-county') {
+    const o = document.createElement('option'); o.value=''; o.textContent='— none —'; sel.appendChild(o);
+  }
+  counties.forEach(c => {
+    const o = document.createElement('option'); o.value = c; o.textContent = tc(c); sel.appendChild(o);
+  });
+  if (id !== 'm-county') sel.value = 'GREATER LONDON';
+});
+document.getElementById('countyChip').textContent  = counties.length + ' counties';
+document.getElementById('countyCount2').textContent = counties.length + ' counties';
+const tsSel = document.getElementById('totalSales'); if (tsSel) tsSel.textContent = totalSales.toLocaleString();
+
+// ── Masthead date ────────────────────────────────────────────
+const nd = new Date();
+document.getElementById('mastDate').textContent = 'Vol. I · Iss. 01 · ' + nd.toLocaleDateString('en-GB',{year:'numeric',month:'short'});
+
+// ── Sliders ──────────────────────────────────────────────────
+document.getElementById('rateSlider').addEventListener('input', e => document.getElementById('rateDisplay').textContent  = (+e.target.value).toFixed(1) + '%');
+document.getElementById('yearsSlider').addEventListener('input',e => document.getElementById('yearsDisplay').textContent = e.target.value + ' yrs');
+document.getElementById('m-rate').addEventListener('input',     e => document.getElementById('m-rate-val').textContent   = (+e.target.value).toFixed(1) + '%');
+document.getElementById('m-term').addEventListener('input',     e => document.getElementById('m-term-val').textContent   = e.target.value + ' yrs');
+
+// ── Tab switching ────────────────────────────────────────────
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ══════════════════════════════════════════════════════════════
+//  SHARED — SVG Trend Chart (uses yearly medians from county_stats.js)
+// ══════════════════════════════════════════════════════════════
+function trendSVG(yearly) {
+  if (!yearly || yearly.length < 2) return '';
+  const W=580,H=165,pL=56,pR=10,pT=10,pB=26;
+  const iW=W-pL-pR, iH=H-pT-pB;
+  const ys=yearly.map(d=>d.median);
+  const minY=Math.min(...ys)*.93, maxY=Math.max(...ys)*1.07;
+  const minX=yearly[0].year, maxX=yearly[yearly.length-1].year;
+  const sx=x=>pL+(x-minX)/(maxX-minX)*iW;
+  const sy=y=>pT+iH-(y-minY)/(maxY-minY)*iH;
+  const pts=yearly.map((d,i)=>`${i===0?'M':'L'}${sx(d.year).toFixed(1)},${sy(d.median).toFixed(1)}`).join(' ');
+  const area=pts+` L${sx(maxX).toFixed(1)},${(pT+iH).toFixed(1)} L${sx(minX).toFixed(1)},${(pT+iH).toFixed(1)} Z`;
+  const yStep=(maxY-minY)/4;
+  const yTicks=Array.from({length:5},(_,i)=>minY+yStep*i);
+  const xTicks=yearly.map(d=>d.year).filter((y,i)=>i===0||i===yearly.length-1||(y-minX)%4===0);
+  return `<svg width="100%" viewBox="0 0 ${W} ${H}" style="display:block;overflow:visible">
+    <defs><linearGradient id="tg" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1E3A8A" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#1E3A8A" stop-opacity="0.01"/>
+    </linearGradient></defs>
+    ${yTicks.map(v=>`<line x1="${pL}" x2="${W-pR}" y1="${sy(v).toFixed(1)}" y2="${sy(v).toFixed(1)}" stroke="#E2E8F0" stroke-width="1"/>`).join('')}
+    ${yTicks.map(v=>`<text x="${pL-4}" y="${(sy(v)+4).toFixed(1)}" text-anchor="end" font-size="9" fill="#64748B" font-family="ui-monospace,monospace">${fmtK(v)}</text>`).join('')}
+    ${xTicks.map(y=>`<text x="${sx(y).toFixed(1)}" y="${H-4}" text-anchor="middle" font-size="9" fill="#64748B" font-family="ui-monospace,monospace">${y}</text>`).join('')}
+    <path d="${area}" fill="url(#tg)"/>
+    <path d="${pts}" fill="none" stroke="#1E3A8A" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    ${yearly.map(d=>`<circle cx="${sx(d.year).toFixed(1)}" cy="${sy(d.median).toFixed(1)}" r="2.8" fill="#1E3A8A"/>`).join('')}
+  </svg>`;
+}
+
+// ══════════════════════════════════════════════════════════════
+//  CORE — Standard amortisation (used by all tabs)
+// ══════════════════════════════════════════════════════════════
+function calcLoan(loan, rate, years) {
+  if (loan <= 0) return 0;
+  const r = rate/100/12, n = years*12;
+  return r === 0 ? loan/n : loan*(r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1);
+}
+
+// ══════════════════════════════════════════════════════════════
+//  CORE — Box–Muller standard normal (used by Monte Carlo)
+// ══════════════════════════════════════════════════════════════
+function boxMuller() {
+  let u, v;
+  do { u = Math.random(); } while (u === 0);
+  do { v = Math.random(); } while (v === 0);
+  return Math.sqrt(-2*Math.log(u)) * Math.cos(2*Math.PI*v);
+}
+
+// ══════════════════════════════════════════════════════════════
+//  V4 MODEL — analyseHouseAdvanced
+//  JavaScript port of analyse_house_advanced() from Housing Market v4.ipynb
+//
+//  Inputs come exclusively from:
+//    - the user form (price, income, deposit, rate, years)
+//    - the externally-loaded COUNTY_STATS (county_stats.js)
+//
+//  No RAW_STATS, no synthetic trends, no fallback magic numbers.
+//
+//  Limitation note (model honesty):
+//    The V4 Python model uses p10 and p90 from the raw transaction data
+//    when scoring price fairness (the −35 penalty when price > p90 and
+//    the small bonus tied to p10). county_stats.js does NOT contain p10
+//    or p90, so we apply the q25 / median / q75 tiers only and explicitly
+//    flag this in the limitations callout. We do not invent p90.
+// ══════════════════════════════════════════════════════════════
+function analyseHouseAdvanced(county, askingPrice, income, deposit, rate, years, forecastYears, simulations) {
+  forecastYears = forecastYears || 5;
+  simulations   = simulations   || 5000;
+
+  const s = COUNTY_STATS[county];
+  if (!s) throw new Error("County '"+county+"' not in COUNTY_STATS");
+
+  // ── B. Current market valuation ──────────────────────────────
+  const median = s.median;
+  const q25    = s.q25;
+  const q75    = s.q75;
+  const count  = s.count;
+  const valuation_gap = (askingPrice - median) / median;
+
+  let price_status;
+  if      (askingPrice > q75) price_status = "overpriced";
+  else if (askingPrice < q25) price_status = "cheap";
+  else                        price_status = "typical";
+
+  // ── C. Financing / mortgage ──────────────────────────────────
+  const loan = Math.max(0, askingPrice - deposit);
+  const monthlyRate = rate/100/12;
+  const months      = years*12;
+  let payment;
+  if (loan === 0)            payment = 0;
+  else if (monthlyRate === 0) payment = loan/months;
+  else                       payment = loan*(monthlyRate*Math.pow(1+monthlyRate,months))/(Math.pow(1+monthlyRate,months)-1);
+
+  const monthlyIncome = income/12;
+  const ratio = monthlyIncome > 0 ? payment/monthlyIncome : NaN;
+  const ltv   = askingPrice > 0   ? loan/askingPrice      : NaN;
+
+  let ltv_status;
+  if      (ltv > 0.90) ltv_status = "high leverage";
+  else if (ltv > 0.75) ltv_status = "moderate leverage";
+  else                 ltv_status = "low leverage";
+
+  let affordability;
+  if      (ratio > 0.40) affordability = "high pressure";
+  else if (ratio > 0.30) affordability = "moderate pressure";
+  else                   affordability = "comfortable";
+
+  // ── D. Yearly market statistics (precomputed in county_stats.js) ──
+  const cagr             = s.cagr;
+  const avg_log_return   = s.avg_log_return;
+  const volatility       = s.volatility;
+  const avg_growth       = s.avg_growth;
+  const market_direction = s.market_direction;
+  const volatility_label = s.volatility_label;
+
+  // ── E. 5-year deterministic projection ──────────────────────
+  const projected_5y_value  = askingPrice * Math.exp(avg_log_return * forecastYears);
+  const projected_change_5y = (projected_5y_value - askingPrice) / askingPrice;
+
+  // ── F. 5-year Monte Carlo (Geometric Brownian Motion) ───────
+  //   P_future = P_current * exp((mu - 0.5*sigma^2)*T + sigma*sqrt(T)*Z)
+  //   Calibrated to county avg_log_return (mu) and volatility (sigma)
+  let sim_values;
+  if (volatility === 0) {
+    sim_values = new Array(simulations).fill(projected_5y_value);
+  } else {
+    sim_values = new Array(simulations);
+    const drift = (avg_log_return - 0.5*volatility*volatility) * forecastYears;
+    const diff  = volatility * Math.sqrt(forecastYears);
+    for (let i = 0; i < simulations; i++) {
+      sim_values[i] = askingPrice * Math.exp(drift + diff * boxMuller());
+    }
+  }
+
+  const sortedSim = sim_values.slice().sort((a,b)=>a-b);
+  const qSim = p => sortedSim[Math.min(sortedSim.length-1, Math.floor(sortedSim.length*p))];
+  const sim_p10    = qSim(0.10);
+  const sim_p25    = qSim(0.25);
+  const sim_median = qSim(0.50);
+  const sim_p75    = qSim(0.75);
+  const sim_p90    = qSim(0.90);
+  const sim_mean   = sim_values.reduce((a,b)=>a+b,0) / sim_values.length;
+
+  let upCount = 0, downCount = 0;
+  for (let i=0; i<sim_values.length; i++) {
+    if (sim_values[i] > askingPrice) upCount++;
+    if (sim_values[i] < askingPrice) downCount++;
+  }
+  const prob_price_up   = upCount   / sim_values.length;
+  const prob_price_down = downCount / sim_values.length;
+
+  // ── G. Interest-rate stress test ────────────────────────────
+  const stressedPayment = annualRate => calcLoan(loan, annualRate, years);
+  const payment_plus_1 = stressedPayment(rate + 1);
+  const payment_plus_2 = stressedPayment(rate + 2);
+  const ratio_plus_1   = monthlyIncome > 0 ? payment_plus_1/monthlyIncome : NaN;
+  const ratio_plus_2   = monthlyIncome > 0 ? payment_plus_2/monthlyIncome : NaN;
+
+  // ── H. Composite buyer score ────────────────────────────────
+  // Same penalty/bonus structure as V4. The −35 (>p90) and small p10
+  // bonus are not applied: county_stats.js does not contain p10/p90.
+  let score = 100;
+
+  // Price fairness  (V4: >p90 −35, >q75 −25, >median −10, <q25 +5)
+  if      (askingPrice > q75)   score -= 25;
+  else if (askingPrice > median) score -= 10;
+  else if (askingPrice < q25)   score += 5;
+
+  // Affordability  (V4: >0.45 −35, >0.40 −25, >0.30 −15, <0.25 +5)
+  if      (ratio > 0.45) score -= 35;
+  else if (ratio > 0.40) score -= 25;
+  else if (ratio > 0.30) score -= 15;
+  else if (ratio < 0.25) score += 5;
+
+  // LTV  (V4: >0.95 −20, >0.90 −15, >0.80 −8, <0.60 +5)
+  if      (ltv > 0.95) score -= 20;
+  else if (ltv > 0.90) score -= 15;
+  else if (ltv > 0.80) score -= 8;
+  else if (ltv < 0.60) score += 5;
+
+  // Market trend (CAGR)  (V4: >0.05 +10, >0.02 +5, <−0.02 −10)
+  if      (cagr >  0.05) score += 10;
+  else if (cagr >  0.02) score += 5;
+  else if (cagr < -0.02) score -= 10;
+
+  // Volatility  (V4: >0.15 −10, >0.08 −5)
+  if      (volatility > 0.15) score -= 10;
+  else if (volatility > 0.08) score -= 5;
+
+  // Forecast probability  (V4: >0.75 +8, >0.60 +4, <0.40 −8)
+  if      (prob_price_up > 0.75) score += 8;
+  else if (prob_price_up > 0.60) score += 4;
+  else if (prob_price_up < 0.40) score -= 8;
+
+  score = Math.max(0, Math.min(Math.round(score), 100));
+
+  // ── I. Decision label ───────────────────────────────────────
+  let decision;
+  if      (score >= 85) decision = "Strong buy";
+  else if (score >= 70) decision = "Reasonable buy";
+  else if (score >= 55) decision = "Caution";
+  else                  decision = "High risk";
+
+  // ── J. Human-friendly wording (same texts as V4) ────────────
+  const price_text =
+      price_status === "overpriced" ? "This property is priced above the typical range for the county, so there may be some risk of overpaying."
+    : price_status === "cheap"      ? "This property is priced below the typical range for the county, which could indicate value, but it may also reflect condition or location factors."
+    :                                 "This property is priced broadly in line with the local market.";
+
+  const affordability_text =
+      affordability === "high pressure"     ? "Your mortgage payments would take up a large share of your income, which could make the purchase financially stressful."
+    : affordability === "moderate pressure" ? "Your mortgage payments are manageable, but they would still take up a noticeable share of your income."
+    :                                         "Your mortgage payments look comfortable relative to your income.";
+
+  const financing_text =
+      ltv_status === "high leverage"     ? "The loan-to-value ratio is high, which means you would be using a lot of leverage and taking on more financial risk."
+    : ltv_status === "moderate leverage" ? "The loan-to-value ratio is moderate, which is workable but still worth monitoring."
+    :                                      "The loan-to-value ratio is relatively low, which gives you a stronger financial cushion.";
+
+  const market_text =
+      market_direction === "strong growth"   ? "Historically, this county has shown strong house price growth."
+    : market_direction === "moderate growth" ? "Historically, this county has shown moderate long-term house price growth."
+    : market_direction === "broadly flat"    ? "Historically, this county has had a fairly flat housing market."
+    :                                          "Historically, this county has shown signs of weakness or decline.";
+
+  const future_text =
+      prob_price_up > 0.70 ? "Based on the historical pattern in this county, the model suggests a relatively strong chance that the property will be worth more in 5 years."
+    : prob_price_up > 0.55 ? "Based on the historical pattern in this county, the model suggests a moderate chance of price growth over 5 years."
+    : prob_price_up > 0.45 ? "The 5-year outlook looks mixed, with no very strong signal either way."
+    :                        "The model suggests there is a meaningful risk that the property may not gain value over the next 5 years.";
+
+  const score_text =
+      score >= 85 ? "Overall, this looks like a strong purchase from both a market and affordability perspective."
+    : score >= 70 ? "Overall, this looks like a reasonable purchase, although there are some points to watch."
+    : score >= 55 ? "Overall, this purchase may be workable, but it comes with some important risks."
+    :               "Overall, this looks like a risky purchase at the moment.";
+
+  // ── K. Warnings ─────────────────────────────────────────────
+  const warnings = [];
+  if (askingPrice > q75)          warnings.push("Price is above the county's typical upper range.");
+  if (ratio > 0.40)                warnings.push("Mortgage payments are high relative to income.");
+  if (ltv > 0.90)                  warnings.push("Loan-to-value is very high.");
+  if (volatility > 0.15)           warnings.push("County market has been highly volatile.");
+  if (prob_price_down > 0.50)      warnings.push("Model suggests more than a 50% chance the property could be worth less than today's price in 5 years.");
+
+  return {
+    decision, score, warnings,
+    median, q25, q75, count, price_status, valuation_gap,
+    loan, monthly_payment: payment, payment_ratio: ratio,
+    ltv, ltv_status, affordability,
+    cagr, avg_log_return, volatility, avg_growth, market_direction, volatility_label,
+    projected_5y_value, projected_change_5y,
+    sim_median, sim_mean, sim_p10, sim_p25, sim_p75, sim_p90,
+    prob_price_up, prob_price_down,
+    payment_plus_1, payment_plus_2, ratio_plus_1, ratio_plus_2,
+    yearly: s.yearly,
+    price_text, affordability_text, financing_text, market_text, future_text, score_text,
+    forecastYears, simulations
+  };
+}
+
+// ══════════════════════════════════════════════════════════════
+//  TAB 1 — AREA EXPLORER (uses COUNTY_STATS only — unchanged)
+// ══════════════════════════════════════════════════════════════
+function renderArea(county) {
+  const s = COUNTY_STATS[county];
+  if (!s) return;
+  const { median, q25, q75, count, cagr, market_direction, volatility_label, yearly } = s;
+  const name   = tc(county);
+  const vsPct  = (median - natMedian) / natMedian * 100;
+  const vsSign = vsPct >= 0 ? '+' : '';
+  const cagrCls = cagr >= 0.036 ? 'ok' : cagr >= 0.022 ? 'blue' : 'warn';
+  const natPctV = bpct(natMedian, natMin*.8, natMax*1.1);
+  const ctyPctV = bpct(median,    natMin*.8, natMax*1.1);
+  const r0=5.2/100/12, n0=300;
+  const mpmt = dep => { const loan=median-dep; return loan*(r0*Math.pow(1+r0,n0))/(Math.pow(1+r0,n0)-1); };
+  const pay10 = mpmt(median*.10), pay20 = mpmt(median*.20);
+  const idx = allRows.findIndex(r=>r.name===county);
+
+  document.getElementById('results-area').innerHTML = `<div class="results">
+    <section class="fade-in">
+      <div class="sec-label">${name} <span class="n">§01 · market overview · rank ${idx+1} of ${allRows.length}</span></div>
+      <div class="verdict">
+        <div class="verdict-l">
+          <div class="verdict-kick">
+            <span>HM Land Registry</span><span>·</span>
+            <span><strong>${count.toLocaleString()}</strong> sales on record</span><span>·</span>
+            <span><strong>${vsSign}${vsPct.toFixed(1)}%</strong> vs national median</span>
+          </div>
+          <div style="font-size:68px;line-height:.95;letter-spacing:-0.03em;font-weight:500;color:var(--ink);margin-bottom:14px;font-family:var(--mono)">${fmt(median)}</div>
+          <p class="verdict-sub">Median sale price in ${name}. Typical homes range from <strong>${fmt(q25)}</strong> (Q₁) to <strong>${fmt(q75)}</strong> (Q₃) — an interquartile spread of <strong>${fmt(q75-q25)}</strong>.</p>
+        </div>
+        <div class="score">
+          <div class="fig-l" style="text-align:center;margin-bottom:10px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600">CAGR</div>
+          <div style="font-size:52px;font-weight:500;letter-spacing:-0.03em;font-family:var(--mono);color:${cagr>=0.036?'var(--ok)':cagr>=0.022?'var(--navy)':'var(--warn)'};font-variant-numeric:tabular-nums">${(cagr*100).toFixed(1)}%</div>
+          <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px">${market_direction}</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Price distribution <span class="n">§01.1</span></div>
+      <div class="figs">
+        <div class="fig"><div class="fig-l">Lower Quartile (Q₁)</div><div class="fig-v">${fmtK(q25)}</div><div class="fig-d">Bottom 25% of sales</div></div>
+        <div class="fig"><div class="fig-l">Median</div><div class="fig-v">${fmtK(median)}</div><div class="fig-d">Mid-market benchmark</div></div>
+        <div class="fig"><div class="fig-l">Upper Quartile (Q₃)</div><div class="fig-v">${fmtK(q75)}</div><div class="fig-d">Top 25% of sales</div></div>
+        <div class="fig"><div class="fig-l">IQR Spread</div><div class="fig-v">${fmtK(q75-q25)}</div><div class="fig-d">${volatility_label}</div></div>
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">National comparison <span class="n">§01.2 · all 108 counties</span></div>
+      <div class="nat-strip">
+        <div class="nat-axis"></div>
+        <div class="nat-bar" style="left:0;right:0;top:22px"></div>
+        <div class="nat-tick" style="left:calc(${natPctV.toFixed(1)}% - 1px);top:20px;background:var(--muted)"></div>
+        <div class="nat-tick" style="left:calc(${ctyPctV.toFixed(1)}% - 1px);top:20px;background:var(--navy)"></div>
+        <div class="nat-lbl" style="left:calc(${natPctV.toFixed(1)}%);bottom:2px;color:var(--muted)">National ${fmtK(natMedian)}</div>
+        <div class="nat-lbl" style="left:calc(${ctyPctV.toFixed(1)}%);top:2px;color:var(--navy);font-weight:600">${name} ${fmtK(median)}</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);font-family:var(--mono)">
+        <span>Cheapest · ${fmtK(natMin)}</span><span>Most expensive · ${fmtK(natMax)}</span>
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Price trend by year <span class="n">§01.3 · median by year</span></div>
+      <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+        <span class="badge ${cagrCls}">CAGR ${(cagr*100).toFixed(1)}%/yr</span>
+        <span class="badge blue">${volatility_label}</span>
+        <span class="badge ${cagrCls}">${market_direction}</span>
+      </div>
+      <div>${trendSVG(yearly)}</div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Mortgage estimates <span class="n">§01.4 · 5.2% rate · 25 yr term</span></div>
+      <div class="figs">
+        <div class="fig"><div class="fig-l">10% Deposit</div><div class="fig-v">${fmt(pay10)}<small>/mo</small></div><div class="fig-d">Loan: <strong>${fmtK(median*.9)}</strong></div></div>
+        <div class="fig"><div class="fig-l">20% Deposit</div><div class="fig-v">${fmt(pay20)}<small>/mo</small></div><div class="fig-d">Loan: <strong>${fmtK(median*.8)}</strong></div></div>
+        <div class="fig"><div class="fig-l">Monthly saving</div><div class="fig-v">${fmt(pay10-pay20)}<small>/mo</small></div><div class="fig-d">By moving 10→20% deposit</div></div>
+        <div class="fig"><div class="fig-l">Income needed</div><div class="fig-v">${fmtK(pay10*12/.30)}<small>/yr</small></div><div class="fig-d">At 30% income ratio · 10% dep.</div></div>
+      </div>
+      <div class="callout"><strong>Note:</strong> Estimates use a representative 5.2% rate over 25 years. Use the <strong>Property Assessment</strong> tab for the full V4 model including stress testing and 5-year Monte Carlo forecast.</div>
+    </section>
+  </div>`;
+}
+
+document.getElementById('sel-area').addEventListener('change', e => renderArea(e.target.value));
+document.getElementById('btn-area').addEventListener('click',  () => renderArea(document.getElementById('sel-area').value));
+
+// ══════════════════════════════════════════════════════════════
+//  TAB 2 — PROPERTY ASSESSMENT (V4 main flow)
+// ══════════════════════════════════════════════════════════════
+function decisionTone(d) {
+  if (d === 'Strong buy')      return 'ok';
+  if (d === 'Reasonable buy')  return 'ok';
+  if (d === 'Caution')         return 'warn';
+  return 'alert'; // High risk
+}
+function ratioTone(r)  { return r<=0.30 ? 'ok' : r<=0.40 ? 'warn' : 'alert'; }
+function ltvTone(l)    { return l<=0.75 ? 'ok' : l<=0.90 ? 'warn' : 'alert'; }
+function probTone(p)   { return p>=0.65 ? 'ok' : p>=0.50 ? 'warn' : 'alert'; }
+
+function renderAssessment(county, price, income, deposit, rate, years) {
+  const r = analyseHouseAdvanced(county, price, income, deposit, rate, years, 5, 5000);
+
+  const t   = decisionTone(r.decision);
+  const at  = ratioTone(r.payment_ratio);
+  const lt  = ltvTone(r.ltv);
+  const pt  = probTone(r.prob_price_up);
+
+  const C = 2*Math.PI*48;
+  const offset = C - (r.score/100)*C;
+  const sc  = t==='ok' ? 'var(--ok)' : t==='warn' ? 'var(--warn)' : 'var(--alert)';
+  const asc = at==='ok' ? 'var(--ok)' : at==='warn' ? 'var(--warn)' : 'var(--alert)';
+  const lsc = lt==='ok' ? 'var(--ok)' : lt==='warn' ? 'var(--warn)' : 'var(--alert)';
+  const psc = pt==='ok' ? 'var(--ok)' : pt==='warn' ? 'var(--warn)' : 'var(--alert)';
+
+  // Quartile bar bounds
+  const bMin = Math.min(r.q25*.5, price*.8);
+  const bMax = Math.max(r.q75*1.5, price*1.2);
+  const q25p = bpct(r.q25, bMin, bMax);
+  const q75p = bpct(r.q75, bMin, bMax);
+  const medp = bpct(r.median, bMin, bMax);
+  const prip = bpct(price,    bMin, bMax);
+
+  // Affordability gauge marker (0–50% range, capped at 100%)
+  const amPct = Math.min(100, (r.payment_ratio/.5)*100);
+  const dPct  = (price-r.median)/r.median*100;
+  const idx   = allRows.findIndex(row=>row.name===county);
+  const start = Math.max(0, Math.min(allRows.length-7, idx-3));
+  const peers = allRows.slice(start, start+7);
+
+  // Forecast bar bounds (Monte Carlo P10–P90 around current)
+  const fMin = Math.min(r.sim_p10, price)*.95;
+  const fMax = Math.max(r.sim_p90, price)*1.05;
+  const fpos = v => bpct(v, fMin, fMax);
+  const totalCost     = r.monthly_payment*years*12;
+  const totalInterest = totalCost - r.loan;
+
+  document.getElementById('results-pricing').innerHTML = `
+    <section class="verdict fade-in">
+      <div class="verdict-l">
+        <div class="verdict-kick">
+          <span>${tc(county)}</span><span>·</span>
+          <span><strong>${fmt(price)}</strong> listed</span><span>·</span>
+          <span><strong>${dPct>=0?'+':''}${dPct.toFixed(1)}%</strong> vs. county median</span>
+        </div>
+        <div class="verdict-word ${t}">${r.decision}.</div>
+        <p class="verdict-sub">${r.score_text} The listing sits <strong>${r.price_status === 'typical' ? 'within' : r.price_status === 'overpriced' ? 'above' : 'below'}</strong> the local interquartile band (${fmtK(r.q25)}–${fmtK(r.q75)}), monthly repayments take <strong>${pct(r.payment_ratio)}</strong> of gross income (<strong>${r.affordability}</strong>), and the simulated 5-year probability of appreciation is <strong>${pct(r.prob_price_up,0)}</strong>.</p>
+      </div>
+      <div class="score">
+        <div class="score-dial">
+          <svg width="130" height="130" viewBox="0 0 130 130">
+            <circle class="t" cx="65" cy="65" r="48"/>
+            <circle class="f" cx="65" cy="65" r="48" stroke="${sc}" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${offset.toFixed(1)}"/>
+          </svg>
+          <div class="score-inner">
+            <div class="score-num" style="color:${sc}">${r.score}</div>
+            <div class="score-of">/ 100</div>
+          </div>
+        </div>
+        <div class="score-label">Buyer score</div>
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Key figures <span class="n">§02.1 · derived quantities</span></div>
+      <div class="figs">
+        <div class="fig"><div class="fig-l">Monthly payment</div><div class="fig-v">${fmt(r.monthly_payment)}</div><div class="fig-d">over <strong>${years} years</strong> at ${rate.toFixed(1)}%</div></div>
+        <div class="fig"><div class="fig-l">Payment-to-income</div><div class="fig-v" style="color:${asc}">${(r.payment_ratio*100).toFixed(1)}<small>%</small></div><div class="fig-d"><strong>${r.affordability}</strong></div></div>
+        <div class="fig"><div class="fig-l">Loan amount</div><div class="fig-v">${fmtK(r.loan)}</div><div class="fig-d"><strong>${(r.ltv*100).toFixed(1)}%</strong> LTV · <span style="color:${lsc}">${r.ltv_status}</span></div></div>
+        <div class="fig"><div class="fig-l">Total interest</div><div class="fig-v">${fmtK(totalInterest)}</div><div class="fig-d">${fmtK(totalCost)} repaid lifetime</div></div>
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Local price position <span class="n">§02.2 · county quartile distribution</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px">
+        <div style="font-size:18px;font-weight:500;letter-spacing:-0.01em">Where this listing falls in ${tc(county)}</div>
+        <div style="font-size:11px;color:var(--muted);font-family:var(--mono)">n = ${r.count.toLocaleString()} sales · status: <strong style="color:${t==='ok'?'var(--ok)':t==='warn'?'var(--warn)':'var(--alert)'}">${r.price_status}</strong></div>
+      </div>
+      <div class="bar-frame">
+        <div class="bar-median-lbl" style="left:${medp}%">Median · ${fmtK(r.median)}</div>
+        <div class="bar-iqr" style="left:${q25p}%;width:${q75p-q25p}%"></div>
+        <div class="bar-axis"></div>
+        <div class="bar-median" style="left:${medp}%"></div>
+        <div class="bar-price ${t}" style="left:${prip}%"></div>
+        <div class="bar-price-lbl ${t}" style="left:${prip}%">You · ${fmtK(price)}</div>
+      </div>
+      <div class="bar-axis-labels"><span>${fmtK(bMin)}</span><span>Q₁ · ${fmtK(r.q25)}</span><span>Q₃ · ${fmtK(r.q75)}</span><span>${fmtK(bMax)}</span></div>
+      <div class="bar-legend">
+        <div class="item"><span class="sq"></span> IQR (Q₁–Q₃, middle 50%)</div>
+        <div class="item"><span class="ln"></span> County median</div>
+        <div class="item"><span class="dm"></span> Listed price</div>
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Peer context <span class="n">§02.3 · ranked by median</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px">
+        <div style="font-size:18px;font-weight:500;letter-spacing:-0.01em">${tc(county)} ranks ${idx+1} of ${allRows.length} counties</div>
+        <div style="font-size:11px;color:var(--muted);font-family:var(--mono)">sorted by median · neighbours shown</div>
+      </div>
+      <table class="rank-table">
+        <thead><tr><th style="width:28%">County</th><th class="td-bar"></th><th class="n">Median</th><th class="n">Q₁</th><th class="n">Q₃</th></tr></thead>
+        <tbody>${peers.map(p=>{
+          const st=COUNTY_STATS[p.name], isYou=p.name===county, w=(p.median/maxMed)*100;
+          return `<tr class="${isYou?'you':''}"><td>${tc(p.name)}</td><td class="td-bar"><div class="mini-bar"><div class="fill" style="width:${w}%"></div></div></td><td class="n">${fmtK(p.median)}</td><td class="n">${fmtK(st.q25)}</td><td class="n">${fmtK(st.q75)}</td></tr>`;
+        }).join('')}</tbody>
+      </table>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Affordability gauge <span class="n">§02.4 · FCA thresholds · 30% / 40%</span></div>
+      <div class="afford-grid">
+        <div>
+          <div class="afford-bar"><div class="afford-marker" style="left:${amPct}%"></div></div>
+          <div class="afford-zones"><div class="z ok">0–30% · comfortable</div><div class="z mid">30–40% · stretch</div><div class="z bad">40%+ · high</div></div>
+        </div>
+        <div class="afford-read">
+          <span class="big" style="color:${asc}">${(r.payment_ratio*100).toFixed(1)}%</span>
+          ${r.affordability_text}
+        </div>
+      </div>
+      <div class="formula">
+        <div>Standard amortisation:</div>
+        <div class="eq">M = <var>P</var> · <var>r</var>(1 + <var>r</var>)<sup><var>n</var></sup> / ((1 + <var>r</var>)<sup><var>n</var></sup> − 1)</div>
+        <div style="font-size:11px;margin-top:4px;color:var(--muted)">where <var>P</var> = loan principal, <var>r</var> = monthly rate, <var>n</var> = total months.</div>
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">County market trend <span class="n">§02.5 · log-return calibration</span></div>
+      <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+        <span class="badge ${r.cagr>=0.05?'ok':r.cagr>=0.02?'blue':r.cagr<-0.02?'alert':'warn'}">CAGR ${(r.cagr*100).toFixed(2)}%/yr</span>
+        <span class="badge blue">${r.market_direction}</span>
+        <span class="badge ${r.volatility>0.15?'alert':r.volatility>0.07?'warn':'ok'}">${r.volatility_label} · σ = ${r.volatility.toFixed(3)}</span>
+        <span class="badge blue">μ (log-return) = ${(r.avg_log_return*100).toFixed(2)}%</span>
+      </div>
+      <div>${trendSVG(r.yearly)}</div>
+      <div class="figs" style="margin-top:24px">
+        <div class="fig"><div class="fig-l">CAGR</div><div class="fig-v">${(r.cagr*100).toFixed(2)}<small>%</small></div><div class="fig-d">compound annual growth</div></div>
+        <div class="fig"><div class="fig-l">Avg. log-return</div><div class="fig-v">${(r.avg_log_return*100).toFixed(2)}<small>%</small></div><div class="fig-d">annual log-return mean</div></div>
+        <div class="fig"><div class="fig-l">Volatility (σ)</div><div class="fig-v">${(r.volatility*100).toFixed(1)}<small>%</small></div><div class="fig-d">${r.volatility_label}</div></div>
+        <div class="fig"><div class="fig-l">Det. 5-yr value</div><div class="fig-v">${fmtK(r.projected_5y_value)}</div><div class="fig-d">P · exp(μ · 5) · trend-only</div></div>
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">5-year forecast <span class="n">§02.6 · Monte Carlo GBM · ${r.simulations.toLocaleString()} sims</span></div>
+      <div class="fcast-grid">
+        <div class="fcast-box"><div class="fig-l">Pessimistic (P10)</div><div class="fig-v" style="color:var(--alert)">${fmtK(r.sim_p10)}</div><div class="fig-d">10th percentile · low scenario</div></div>
+        <div class="fcast-box"><div class="fig-l">Median forecast</div><div class="fig-v">${fmtK(r.sim_median)}</div><div class="fig-d">most likely outcome</div></div>
+        <div class="fcast-box"><div class="fig-l">Optimistic (P90)</div><div class="fig-v" style="color:var(--ok)">${fmtK(r.sim_p90)}</div><div class="fig-d">90th percentile · high scenario</div></div>
+      </div>
+      <div class="bar-frame" style="height:90px;margin:6px 0 8px">
+        <div class="bar-iqr" style="left:${fpos(r.sim_p10)}%;width:${fpos(r.sim_p90)-fpos(r.sim_p10)}%;bottom:38px"></div>
+        <div class="bar-axis"></div>
+        <div class="bar-median" style="left:${fpos(r.sim_median)}%"></div>
+        <div class="bar-median-lbl" style="left:${fpos(r.sim_median)}%;bottom:60px">Sim. median · ${fmtK(r.sim_median)}</div>
+        <div class="bar-price navy" style="left:${fpos(price)}%"></div>
+        <div class="bar-price-lbl navy" style="left:${fpos(price)}%">Today · ${fmtK(price)}</div>
+      </div>
+      <div class="bar-axis-labels"><span>${fmtK(fMin)}</span><span>P10 · ${fmtK(r.sim_p10)}</span><span>P90 · ${fmtK(r.sim_p90)}</span><span>${fmtK(fMax)}</span></div>
+      <div class="prob-grid">
+        <div class="prob-box">
+          <div class="fig-l">Prob. price rises</div>
+          <div class="fig-v" style="color:${psc}">${(r.prob_price_up*100).toFixed(0)}<small>%</small></div>
+          <div class="fig-d">P(future value &gt; today's listed price)</div>
+        </div>
+        <div class="prob-box">
+          <div class="fig-l">Prob. price falls</div>
+          <div class="fig-v" style="color:${r.prob_price_down>0.5?'var(--alert)':'var(--ink-2)'}">${(r.prob_price_down*100).toFixed(0)}<small>%</small></div>
+          <div class="fig-d">P(future value &lt; today's listed price)</div>
+        </div>
+      </div>
+      <div class="callout">
+        <strong>Method:</strong> Geometric Brownian Motion using the county's avg. log-return (μ = ${(r.avg_log_return*100).toFixed(2)}%) and volatility (σ = ${(r.volatility*100).toFixed(1)}%) from <code>county_stats.js</code>:
+        <span style="font-family:var(--mono);font-size:12px">P<sub>T</sub> = P<sub>0</sub> · exp((μ − ½σ²)T + σ√T · Z),  Z ~ N(0,1)</span>.
+        Identical to the 5,000-path simulation in <em>Housing Market v4</em>.
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Rate stress test <span class="n">§02.7 · sensitivity to rate increases</span></div>
+      <div class="stress-row"><span>Current rate · ${rate.toFixed(1)}%</span><span class="sv">${fmt(r.monthly_payment)}/mo · ${(r.payment_ratio*100).toFixed(1)}% of income</span></div>
+      <div class="stress-row warn"><span style="color:var(--warn)">+1% → rate rises to ${(rate+1).toFixed(1)}%</span><span class="sv">${fmt(r.payment_plus_1)}/mo · ${(r.ratio_plus_1*100).toFixed(1)}% <span style="font-size:12px;font-weight:400;color:var(--warn)">+${fmt(r.payment_plus_1-r.monthly_payment)}</span></span></div>
+      <div class="stress-row alert"><span style="color:var(--alert)">+2% → rate rises to ${(rate+2).toFixed(1)}%</span><span class="sv">${fmt(r.payment_plus_2)}/mo · ${(r.ratio_plus_2*100).toFixed(1)}% <span style="font-size:12px;font-weight:400;color:var(--alert)">+${fmt(r.payment_plus_2-r.monthly_payment)}</span></span></div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Risk warnings <span class="n">§02.8 · automatic flags</span></div>
+      ${r.warnings.length === 0
+        ? `<ul class="warn-list empty"><li style="color:var(--ok)">No major automatic risk flags triggered. Always review the narrative and the model limitations below.</li></ul>`
+        : `<ul class="warn-list">${r.warnings.map(w=>`<li>${w}</li>`).join('')}</ul>`}
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Final assessment <span class="n">§02.9 · readable summary</span></div>
+      <div class="narrative">
+        <p class="lead">${r.score_text}</p>
+        <p><strong>Price:</strong> ${r.price_text}</p>
+        <p><strong>Affordability:</strong> ${r.affordability_text}</p>
+        <p><strong>Financing:</strong> ${r.financing_text}</p>
+        <p><strong>Market outlook:</strong> ${r.market_text} ${r.future_text}</p>
+      </div>
+      <div class="callout">
+        <strong>Model limitations.</strong> The V4 Python model also uses p10 and p90 from the raw transaction data when scoring price fairness (e.g. a steeper penalty when the asking price exceeds the 90th percentile). The exported <code>county_stats.js</code> only contains median, Q₁, Q₃, count, CAGR, log-return, volatility and the yearly median series, so this web tool applies the q25 / median / q75 tiers only and does not synthesise a p90. All other V4 logic — affordability, LTV, market trend, volatility, Monte Carlo GBM, stress test, decision label and warnings — is reproduced exactly.
+      </div>
+    </section>`;
+}
+
+document.getElementById('analyseBtn').addEventListener('click', () => {
+  const county  = document.getElementById('sel-pricing').value;
+  const price   = parseFloat(document.getElementById('askingPrice').value);
+  const income  = parseFloat(document.getElementById('income').value);
+  const deposit = parseFloat(document.getElementById('deposit').value);
+  const rate    = parseFloat(document.getElementById('rateSlider').value);
+  const years   = parseInt(document.getElementById('yearsSlider').value);
+  if (!county || isNaN(price) || isNaN(income) || isNaN(deposit)) return;
+  if (deposit >= price) { alert('Deposit must be less than the listed price.'); return; }
+  renderAssessment(county, price, income, deposit, rate, years);
+});
+
+// ══════════════════════════════════════════════════════════════
+//  TAB 3 — MORTGAGE PLANNER (uses V4 model when a county is set;
+//  otherwise it is a county-agnostic amortisation + stress test)
+// ══════════════════════════════════════════════════════════════
+function renderMortgage(price, deposit, income, rate, years, county) {
+  const loan    = Math.max(0, price-deposit);
+  const payment = calcLoan(loan, rate, years);
+  const total   = payment*years*12;
+  const interest= total-loan;
+  const ratio   = payment/(income/12);
+  const ltv     = price>0 ? (loan/price) : 0;
+  const maxBorrow = income*4.5;
+  const at   = ratioTone(ratio);
+  const asc  = at==='ok'?'var(--ok)':at==='warn'?'var(--warn)':'var(--alert)';
+  const pay1 = calcLoan(loan, rate+1, years);
+  const pay2 = calcLoan(loan, rate+2, years);
+  const dep80extra = Math.max(0, price*.20-deposit);
+  const amPct = Math.min(100, (ratio/.5)*100);
+  const ltvPct = ltv*100;
+  const ltvLabel = ltvPct<=60?'Excellent':ltvPct<=75?'Good':ltvPct<=80?'Standard':ltvPct<=90?'Elevated':'Very High';
+  const ltvHint  = ltvPct<=60?'Qualifies for the best available rates.':ltvPct<=75?'Access to competitive rates.':ltvPct<=80?'Most lenders will have suitable products.':ltvPct<=90?'Higher risk tier — rates will be elevated.':'Very limited lenders; highest rate tier.';
+
+  let forecastHtml = '';
+  if (county && COUNTY_STATS[county]) {
+    // Use the same V4 GBM as the main assessment, calibrated to the chosen county.
+    const r = analyseHouseAdvanced(county, price, income, deposit, rate, years, 5, 5000);
+    const psc = probTone(r.prob_price_up)==='ok'?'var(--ok)':probTone(r.prob_price_up)==='warn'?'var(--warn)':'var(--alert)';
+    forecastHtml = `
+    <section class="fade-in">
+      <div class="sec-label">5-year forecast <span class="n">§03.4 · Monte Carlo GBM · ${tc(county)} · ${r.simulations.toLocaleString()} sims</span></div>
+      <div class="fcast-grid">
+        <div class="fcast-box"><div class="fig-l">Pessimistic (P10)</div><div class="fig-v" style="color:var(--alert)">${fmtK(r.sim_p10)}</div><div class="fig-d">low scenario</div></div>
+        <div class="fcast-box"><div class="fig-l">Expected (median)</div><div class="fig-v">${fmtK(r.sim_median)}</div><div class="fig-d">most likely</div></div>
+        <div class="fcast-box"><div class="fig-l">Optimistic (P90)</div><div class="fig-v" style="color:var(--ok)">${fmtK(r.sim_p90)}</div><div class="fig-d">high scenario</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+        <div>
+          <div class="fig-l" style="margin-bottom:8px">Prob. of appreciation</div>
+          <div style="font-size:44px;font-weight:500;font-family:var(--mono);color:${psc};letter-spacing:-0.02em;font-variant-numeric:tabular-nums">${(r.prob_price_up*100).toFixed(0)}%</div>
+        </div>
+        <div class="callout" style="flex:1;margin:0">${tc(county)} CAGR <strong>${(r.cagr*100).toFixed(1)}%/yr</strong>, σ <strong>${(r.volatility*100).toFixed(1)}%</strong>, μ <strong>${(r.avg_log_return*100).toFixed(2)}%</strong>. Identical GBM to the V4 notebook.</div>
+      </div>
+    </section>`;
+  }
+
+  document.getElementById('results-mortgage').innerHTML = `
+    <section class="verdict fade-in" style="padding-bottom:28px">
+      <div class="verdict-l">
+        <div class="verdict-kick">
+          <span>${rate.toFixed(1)}% rate</span><span>·</span>
+          <span>${years}-year term</span><span>·</span>
+          <span>${ltvPct.toFixed(1)}% LTV</span>
+        </div>
+        <div style="font-size:68px;line-height:.95;letter-spacing:-0.035em;font-weight:500;margin-bottom:14px;font-family:var(--mono);font-variant-numeric:tabular-nums">${fmt(payment)}<span style="font-size:20px;color:var(--muted);font-weight:400">/mo</span></div>
+        <p class="verdict-sub">Monthly repayment on a <strong>${fmtK(loan)}</strong> loan — <strong>${(ratio*100).toFixed(1)}%</strong> of gross monthly income, rated <strong>${ratio<=0.30?'comfortable':ratio<=0.40?'moderate pressure':'high pressure'}</strong> by FCA guidance.</p>
+      </div>
+      <div class="score" style="padding-left:32px">
+        <div class="fig-l" style="text-align:center;margin-bottom:8px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600">Affordability</div>
+        <div style="font-size:44px;font-weight:500;font-family:var(--mono);color:${asc};letter-spacing:-0.02em;font-variant-numeric:tabular-nums">${(ratio*100).toFixed(1)}%</div>
+        <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px">${ratio<=0.30?'Comfortable':ratio<=0.40?'Moderate':'High pressure'}</div>
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Full breakdown <span class="n">§03.1 · amortisation summary</span></div>
+      <div class="figs">
+        <div class="fig"><div class="fig-l">Loan amount</div><div class="fig-v">${fmtK(loan)}</div><div class="fig-d"><strong>${ltvPct.toFixed(1)}%</strong> LTV · <span class="badge ${at}" style="font-size:10px;padding:2px 6px">${ltvLabel}</span></div></div>
+        <div class="fig"><div class="fig-l">Total repaid</div><div class="fig-v">${fmtK(total)}</div><div class="fig-d">over ${years} years</div></div>
+        <div class="fig"><div class="fig-l">Total interest</div><div class="fig-v" style="color:var(--warn)">${fmtK(interest)}</div><div class="fig-d">${((interest/Math.max(loan,1))*100).toFixed(0)}% of loan value</div></div>
+        <div class="fig"><div class="fig-l">Max borrowing</div><div class="fig-v" style="color:${loan<=maxBorrow?'var(--ok)':'var(--alert)'}">${fmtK(maxBorrow)}</div><div class="fig-d">${loan<=maxBorrow?'Loan within range':'Exceeds 4.5× income'}</div></div>
+      </div>
+      <div class="callout"><strong>${ltvPct.toFixed(1)}% LTV:</strong> ${ltvHint}${dep80extra>0?` Saving an extra <strong>${fmt(dep80extra)}</strong> in deposit would bring you to 80% LTV.`:''}</div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Affordability gauge <span class="n">§03.2 · FCA thresholds</span></div>
+      <div class="afford-grid">
+        <div>
+          <div class="afford-bar"><div class="afford-marker" style="left:${amPct}%"></div></div>
+          <div class="afford-zones"><div class="z ok">0–30% · comfortable</div><div class="z mid">30–40% · stretch</div><div class="z bad">40%+ · high</div></div>
+        </div>
+        <div class="afford-read">
+          <span class="big" style="color:${asc}">${(ratio*100).toFixed(1)}%</span>
+          ${ratio<=0.30?'Well within the FCA comfort zone.':ratio<=0.40?'Approaching the upper recommended limit.':'Exceeds the FCA stress threshold — consider a larger deposit or longer term.'}
+        </div>
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Rate stress test <span class="n">§03.3 · sensitivity to rate increases</span></div>
+      <div class="stress-row"><span>Current rate · ${rate.toFixed(1)}%</span><span class="sv">${fmt(payment)}/mo</span></div>
+      <div class="stress-row warn"><span style="color:var(--warn)">+1% → rate rises to ${(rate+1).toFixed(1)}%</span><span class="sv">${fmt(pay1)}/mo <span style="font-size:12px;font-weight:400;color:var(--warn)">+${fmt(pay1-payment)}</span></span></div>
+      <div class="stress-row alert"><span style="color:var(--alert)">+2% → rate rises to ${(rate+2).toFixed(1)}%</span><span class="sv">${fmt(pay2)}/mo <span style="font-size:12px;font-weight:400;color:var(--alert)">+${fmt(pay2-payment)}</span></span></div>
+    </section>
+
+    ${forecastHtml}`;
+}
+
+document.getElementById('btn-mortgage').addEventListener('click', () => {
+  const price   = parseFloat(document.getElementById('m-price').value);
+  const deposit = parseFloat(document.getElementById('m-deposit').value);
+  const income  = parseFloat(document.getElementById('m-income').value);
+  const rate    = parseFloat(document.getElementById('m-rate').value);
+  const years   = parseInt(document.getElementById('m-term').value);
+  const county  = document.getElementById('m-county').value;
+  if (isNaN(price)||isNaN(deposit)||isNaN(income)) return;
+  if (deposit >= price) { alert('Deposit must be less than the property price.'); return; }
+  renderMortgage(price, deposit, income, rate, years, county);
+});
+
+// ══════════════════════════════════════════════════════════════
+//  TAB 4 — REGION COMPARE
+// ══════════════════════════════════════════════════════════════
+var RC_COLORS = ['#1E3A8A','#2F855A','#B45309','#B91C1C'];
+var RC_MAX = 4;
+
+function multiLineSVG(series, metric) {
+  if (!series.length) return '';
+  var W=680, H=240, pL=72, pR=12, pT=12, pB=28;
+  var iW=W-pL-pR, iH=H-pT-pB;
+  var allV = series.flatMap(function(s){return s.vals.map(function(v){return v.val;});});
+  var allY = [...new Set(series.flatMap(function(s){return s.vals.map(function(v){return v.y;});}))].sort();
+  var pad  = metric==='index'?0.055:0.075;
+  var minV = Math.min.apply(null,allV)*(1-pad), maxV=Math.max.apply(null,allV)*(1+pad);
+  var minX = allY[0], maxX=allY[allY.length-1], span=Math.max(maxX-minX,1);
+  function sx(x){return pL+(x-minX)/span*iW;}
+  function sy(y){return pT+iH-(y-minV)/(maxV-minV)*iH;}
+  var yTicks = Array.from({length:5},function(_,i){return minV+(maxV-minV)/4*i;});
+  var grads = series.map(function(s,i){
+    return '<linearGradient id="rcg'+i+'" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="'+s.col+'" stop-opacity="0.12"/><stop offset="100%" stop-color="'+s.col+'" stop-opacity="0.01"/></linearGradient>';
+  }).join('');
+  var traces = series.map(function(s,i){
+    var pts=s.vals;
+    var line=pts.map(function(d,j){return (j===0?'M':'L')+sx(d.y).toFixed(1)+','+sy(d.val).toFixed(1);}).join(' ');
+    var area=line+' L'+sx(pts[pts.length-1].y).toFixed(1)+','+(pT+iH).toFixed(1)+' L'+sx(pts[0].y).toFixed(1)+','+(pT+iH).toFixed(1)+' Z';
+    var dots=pts.map(function(d){return '<circle class="rc-dot" data-y="'+d.y+'" data-i="'+i+'" cx="'+sx(d.y).toFixed(1)+'" cy="'+sy(d.val).toFixed(1)+'" r="3" fill="'+s.col+'"/>';}).join('');
+    return '<path d="'+area+'" fill="url(#rcg'+i+')"/><path d="'+line+'" fill="none" stroke="'+s.col+'" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>'+dots;
+  }).join('');
+  var base100 = metric==='index'&&100>=minV&&100<=maxV?'<line x1="'+pL+'" x2="'+(W-pR)+'" y1="'+sy(100).toFixed(1)+'" y2="'+sy(100).toFixed(1)+'" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="4,3"/>':'';
+  var base0   = metric==='gap'?'<line x1="'+pL+'" x2="'+(W-pR)+'" y1="'+sy(0).toFixed(1)+'" y2="'+sy(0).toFixed(1)+'" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="4,3"/>':'';
+  var gridLines = yTicks.map(function(v){
+    return '<line x1="'+pL+'" x2="'+(W-pR)+'" y1="'+sy(v).toFixed(1)+'" y2="'+sy(v).toFixed(1)+'" stroke="#E2E8F0" stroke-width="1"/><text x="'+(pL-4)+'" y="'+(sy(v)+4).toFixed(1)+'" text-anchor="end" font-size="9" fill="#64748B" font-family="ui-monospace,monospace">'+(metric==='index'?Math.round(v):(metric==='gap'?v.toFixed(1)+'%':fmtK(v)))+'</text>';
+  }).join('');
+  var xLabels = allY.filter(function(_,i){return i%Math.ceil(allY.length/8)===0||i===allY.length-1;}).map(function(y){
+    return '<text x="'+sx(y).toFixed(1)+'" y="'+(H-4)+'" text-anchor="middle" font-size="9" fill="#64748B" font-family="ui-monospace,monospace">'+y+'</text>';
+  }).join('');
+  // Hover overlay: transparent rect + crosshair + data points overlay
+  var overlay = '<rect id="rc-overlay" x="'+pL+'" y="'+pT+'" width="'+iW+'" height="'+iH+'" fill="transparent" style="cursor:crosshair"/><line id="rc-crosshair" x1="0" x2="0" y1="'+pT+'" y2="'+(pT+iH)+'" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,3" display="none"/>';
+  var hoverDots = series.map(function(s,i){
+    return '<circle id="rc-hdot'+i+'" cx="0" cy="0" r="5" fill="'+s.col+'" stroke="#fff" stroke-width="2" display="none"/>';
+  }).join('');
+  var svgStr = '<svg id="rc-svg" width="100%" viewBox="0 0 '+W+' '+H+'" style="display:block;overflow:visible"><defs>'+grads+'</defs>'+gridLines+xLabels+base100+base0+traces+overlay+hoverDots+'</svg>';
+  // Store data for hover handler
+  window._rcHoverData = {series:series, allY:allY, sx:sx, sy:sy, pL:pL, pR:pR, pT:pT, iH:iH, W:W, H:H, metric:metric};
+  return svgStr;
+}
+
+function attachRcHover() {
+  var svg = document.getElementById('rc-svg');
+  var tooltip = document.getElementById('rc-tooltip');
+  if (!svg || !tooltip || !window._rcHoverData) return;
+  var d = window._rcHoverData;
+  svg.addEventListener('mousemove', function(e) {
+    var rect = svg.getBoundingClientRect();
+    var scaleX = d.W / rect.width;
+    var mx = (e.clientX - rect.left) * scaleX;
+    if (mx < d.pL || mx > d.W - d.pR) { hideRcHover(tooltip); return; }
+    // Find nearest year
+    var span = Math.max(d.allY[d.allY.length-1] - d.allY[0], 1);
+    var xFrac = (mx - d.pL) / (d.W - d.pL - d.pR);
+    var rawYear = d.allY[0] + xFrac * span;
+    var nearest = d.allY.reduce(function(a,b){ return Math.abs(b-rawYear)<Math.abs(a-rawYear)?b:a; });
+    var cx = d.sx(nearest);
+    // Crosshair
+    var ch = document.getElementById('rc-crosshair');
+    if (ch) { ch.setAttribute('x1', cx.toFixed(1)); ch.setAttribute('x2', cx.toFixed(1)); ch.removeAttribute('display'); }
+    // Hover dots
+    var lines = ['<strong style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#64748B">'+nearest+'</strong>'];
+    d.series.forEach(function(s, i) {
+      var pt = s.vals.find(function(v){return v.y===nearest;});
+      var hdot = document.getElementById('rc-hdot'+i);
+      if (pt && hdot) {
+        var cy = d.sy(pt.val);
+        hdot.setAttribute('cx', cx.toFixed(1)); hdot.setAttribute('cy', cy.toFixed(1)); hdot.removeAttribute('display');
+        var label = d.metric==='index'?pt.val.toFixed(1):(d.metric==='gap'?pt.val.toFixed(1)+'%':fmtK(pt.val));
+        lines.push('<span style="color:'+s.col+';font-weight:600">'+tc(s.name)+'</span> <span style="font-family:ui-monospace,monospace">'+label+'</span>');
+      } else if (hdot) { hdot.setAttribute('display','none'); }
+    });
+    tooltip.innerHTML = lines.join('<br>');
+    tooltip.style.display = 'block';
+    var wrapRect = document.getElementById('rc-chart-wrap').getBoundingClientRect();
+    var tx = e.clientX - wrapRect.left + 14;
+    var ty = e.clientY - wrapRect.top - 10;
+    if (tx + 180 > wrapRect.width) tx = e.clientX - wrapRect.left - 180;
+    tooltip.style.left = tx + 'px'; tooltip.style.top = ty + 'px';
+  });
+  svg.addEventListener('mouseleave', function(){ hideRcHover(tooltip); });
+}
+
+function hideRcHover(tooltip) {
+  if (tooltip) tooltip.style.display = 'none';
+  var ch = document.getElementById('rc-crosshair'); if (ch) ch.setAttribute('display','none');
+  for (var i=0;i<RC_MAX;i++){ var h=document.getElementById('rc-hdot'+i); if(h) h.setAttribute('display','none'); }
+}
+
+var rcMode = 'regions';
+var rcSelected = ['London','North West','South East'];
+
+function initCompare() {
+  document.getElementById('rc-mode-toggle').addEventListener('click', function(e) {
+    var btn = e.target.closest('.mode-btn'); if (!btn) return;
+    rcMode = btn.dataset.mode;
+    document.querySelectorAll('#rc-mode-toggle .mode-btn').forEach(function(b){b.classList.toggle('active', b===btn);});
+    rcSelected = rcMode==='regions'?['London','North West','South East']:['GREATER LONDON','WEST SUSSEX','WEST YORKSHIRE'];
+    populateRcAdd(); renderRcTags();
+    var gapOpt = document.getElementById('rc-metric').querySelector('option[value="gap"]');
+    gapOpt.disabled = (rcMode==='counties');
+    var periodSel = document.getElementById('rc-period');
+    if (rcMode==='counties') {
+      periodSel.value='all'; periodSel.disabled=true;
+      if (document.getElementById('rc-metric').value==='gap') document.getElementById('rc-metric').value='price';
+    } else { periodSel.disabled=false; }
+  });
+  populateRcAdd(); renderRcTags();
+  document.getElementById('rc-add').addEventListener('change', function(e) {
+    var v=e.target.value; if(!v) return;
+    if(rcSelected.length>=RC_MAX){e.target.value='';return;}
+    if(!rcSelected.includes(v)) rcSelected.push(v);
+    renderRcTags(); e.target.value='';
+  });
+  document.getElementById('btn-compare').addEventListener('click', runCompare);
+}
+
+function populateRcAdd() {
+  var sel = document.getElementById('rc-add');
+  sel.innerHTML = '<option value="">— add area —</option>';
+  var list = rcMode==='regions'?REIT_REGIONS:counties;
+  list.forEach(function(c){ var o=document.createElement('option'); o.value=c; o.textContent=tc(c); sel.appendChild(o); });
+}
+
+function renderRcTags() {
+  var pool = document.getElementById('rc-tags');
+  pool.innerHTML = rcSelected.map(function(r,i){
+    return '<span class="r-tag" style="border-color:'+RC_COLORS[i%RC_MAX]+';color:'+RC_COLORS[i%RC_MAX]+'">'+tc(r)+'<button class="r-tag-x" data-r="'+r+'">×</button></span>';
+  }).join('');
+  pool.querySelectorAll('.r-tag-x').forEach(function(b){
+    b.addEventListener('click', function(){ rcSelected=rcSelected.filter(function(x){return x!==b.dataset.r;}); renderRcTags(); });
+  });
+  document.getElementById('rcCountChip').textContent = rcSelected.length+' selected';
+}
+
+function runCompare() {
+  var metric = document.getElementById('rc-metric').value;
+  var period = document.getElementById('rc-period').value;
+  if (!rcSelected.length) { alert('Select at least one '+(rcMode==='regions'?'region':'county')+'.'); return; }
+  var cutoff = period==='postgfc'?2010:period==='postpan'?2020:0;
+
+  var series = rcSelected.map(function(name,i){
+    var vals;
+    if (rcMode==='regions') {
+      var hist = (REIT_HISTORY[name]||[]).filter(function(d){return d.y>=cutoff;});
+      if (metric==='gap') {
+        var sc=REIT_SCORING[name]; if(!sc) return null;
+        return {name:name, col:RC_COLORS[i%RC_MAX], vals:hist.map(function(d){return {y:d.y,val:sc.gap};})};
+      }
+      vals = hist.map(function(d){return {y:d.y, val:d.p};});
+    } else {
+      // Counties: 2021–2026 only
+      var s=COUNTY_STATS[name]; if(!s||!s.yearly) return null;
+      vals = s.yearly.map(function(d){return {y:d.year, val:d.median};});
+    }
+    if (metric==='index') { var base=vals[0]?vals[0].val:1; vals=vals.map(function(d){return {y:d.y,val:d.val/base*100};}); }
+    return {name:name, col:RC_COLORS[i%RC_MAX], vals:vals};
+  }).filter(Boolean);
+
+  if (!series.length) return;
+
+  var statsCards = rcSelected.map(function(name,i){
+    if (rcMode==='regions') {
+      var sc=REIT_SCORING[name]||{};
+      var gap=sc.gap||0, gc=gap<=0?'var(--ok)':'var(--alert)';
+      return '<div class="fig"><div class="fig-l" style="color:'+RC_COLORS[i%RC_MAX]+'">'+tc(name)+'</div>'+
+        '<div class="fig-v">'+fmtK(sc.obs||0)+'</div>'+
+        '<div class="fig-d">Fair value: <strong>'+fmtK(sc.fair||0)+'</strong></div>'+
+        '<div class="fig-d" style="margin-top:4px">Gap: <strong style="color:'+gc+'">'+(gap>0?'+':'')+gap+'%</strong></div>'+
+        '<div class="fig-d">Consumer: <strong>'+sc.cs+'/100</strong> · REIT: <strong>'+sc.rs+'/100</strong></div></div>';
+    } else {
+      var s=COUNTY_STATS[name]||{}, vs=((s.median-natMedian)/natMedian*100);
+      var cc=s.cagr>=0.036?'var(--ok)':s.cagr>=0.022?'var(--navy)':'var(--warn)';
+      return '<div class="fig"><div class="fig-l" style="color:'+RC_COLORS[i%RC_MAX]+'">'+tc(name)+'</div>'+
+        '<div class="fig-v">'+fmtK(s.median||0)+'</div>'+
+        '<div class="fig-d">'+(vs>=0?'+':'')+vs.toFixed(1)+'% vs national median</div>'+
+        '<div class="fig-d" style="margin-top:4px">CAGR: <strong style="color:'+cc+'">'+((s.cagr||0)*100).toFixed(1)+'%/yr</strong></div></div>';
+    }
+  }).join('');
+
+  var pLabel = period==='postgfc'?'Post-GFC (2010–present)':period==='postpan'?'Post-pandemic (2020–present)':'Full history';
+  if (rcMode==='counties') pLabel = '2021–2026';
+  var mLabel = metric==='index'?'Price index (base = 100)':metric==='gap'?'Fair value gap (%)':'Average price (£)';
+  var note   = metric==='gap'?'<div class="callout"><strong>Note:</strong> Fair value gap is a single estimated point shown as a constant line to enable side-by-side comparison. Positive = overvalued; negative = undervalued relative to calibrated fair value.</div>':metric==='index'?'<div class="callout">All series rebased to 100 at the start of the selected period. Dashed line marks baseline 100.</div>':'';
+
+  document.getElementById('results-compare').innerHTML =
+    '<section class="fade-in">'+
+      '<div class="sec-label">'+mLabel+' · '+pLabel+' <span class="n">'+rcSelected.length+' '+(rcMode==='regions'?'regions':'counties')+' · UK housing</span></div>'+
+      '<div class="rc-chart-wrap" id="rc-chart-wrap" style="padding:20px 24px 14px">'+
+        multiLineSVG(series,metric)+
+        '<div class="rc-tooltip" id="rc-tooltip"></div>'+
+      '</div>'+
+      '<div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:12px">'+
+        rcSelected.map(function(n,i){return '<span style="font-size:11px;font-weight:600;color:'+RC_COLORS[i%RC_MAX]+';letter-spacing:.06em;text-transform:uppercase">— '+tc(n)+'</span>';}).join('')+
+      '</div>'+note+
+    '</section>'+
+    '<section class="fade-in">'+
+      '<div class="sec-label">Key metrics <span class="n">'+(rcMode==='regions'?'REIT model · calibrated Apr 2026':'HM Land Registry')+'</span></div>'+
+      '<div class="figs" style="grid-template-columns:repeat('+Math.min(rcSelected.length,4)+',1fr)">'+statsCards+'</div>'+
+    '</section>';
+
+  attachRcHover();
+}
+
+initCompare();
+
+// ── Auto-run an initial V4 assessment so the main panel is populated ──
+renderAssessment(
+  document.getElementById('sel-pricing').value,
+  parseFloat(document.getElementById('askingPrice').value),
+  parseFloat(document.getElementById('income').value),
+  parseFloat(document.getElementById('deposit').value),
+  parseFloat(document.getElementById('rateSlider').value),
+  parseInt(document.getElementById('yearsSlider').value)
+);
+renderArea('GREATER LONDON');
+</script>
+</body>
+</html>

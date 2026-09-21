@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>UK Home Buyer's Guide — University of Aberdeen</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --ink:#0A1628; --ink-2:#334155; --muted:#64748B;
+    --rule:#E2E8F0; --rule-2:#CBD5E1;
+    --paper:#FBFCFD; --panel:#FFFFFF;
+    --navy:#1E3A8A; --blue:#3B82F6;
+    --blue-soft:#DBEAFE; --blue-tint:#EFF4FB;
+    --ok:#2F855A; --warn:#B45309; --alert:#B91C1C;
+    --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+  html,body{background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;font-feature-settings:"tnum" 1}
+  body{min-height:100vh;padding:40px 48px 64px;line-height:1.5}
+  .page{max-width:1280px;margin:0 auto}
+
+  /* ── Masthead ── */
+  .masthead{border-top:3px solid var(--ink);border-bottom:1px solid var(--rule);padding:14px 0 16px;display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin-bottom:40px}
+  .mast-l{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}
+  .mast-mark{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);font-weight:700}
+  .mast-sep{width:1px;height:14px;background:var(--rule-2);display:inline-block;vertical-align:middle}
+  .mast-c{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .mast-r{font-size:11px;color:var(--muted);letter-spacing:.04em}
+
+  /* ── Hero ── */
+  .hero{display:grid;grid-template-columns:1fr 320px;gap:64px;align-items:end;padding-bottom:40px;border-bottom:1px solid var(--rule);margin-bottom:40px}
+  .hero-kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);font-weight:700;margin-bottom:18px}
+  .hero h1{font-size:60px;line-height:1.02;letter-spacing:-0.025em;font-weight:500;color:var(--ink);margin-bottom:20px}
+  .hero h1 em{font-style:normal;color:var(--navy);font-weight:500}
+  .hero-lead{font-size:16px;line-height:1.55;color:var(--ink-2);max-width:620px}
+  .hero-abs{font-size:12px;color:var(--muted);line-height:1.65;border-left:2px solid var(--navy);padding:4px 0 4px 16px}
+  .hero-abs .lbl{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);font-weight:700;margin-bottom:8px;display:block}
+
+  /* ── Method strip ── */
+  .method{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:20px 0;margin-bottom:40px}
+  .method-item{padding:0 28px;border-left:1px solid var(--rule)}
+  .method-item:first-child{border-left:none;padding-left:0}
+  .method-n{font-family:var(--mono);font-size:11px;color:var(--navy);letter-spacing:.08em;margin-bottom:8px}
+  .method-t{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px;letter-spacing:-0.01em}
+  .method-d{font-size:12px;color:var(--muted);line-height:1.5}
+
+  /* ── Tabs ── */
+  .tab-nav{display:flex;gap:0;border-bottom:1px solid var(--rule);margin-bottom:40px}
+  .tab-btn{padding:12px 28px;border:none;border-bottom:2.5px solid transparent;margin-bottom:-1px;background:transparent;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--muted);cursor:pointer;transition:all .15s;font-family:var(--sans)}
+  .tab-btn.active{color:var(--navy);border-bottom-color:var(--navy)}
+  .tab-btn:hover:not(.active){color:var(--ink)}
+  .tab-panel{display:none}
+  .tab-panel.active{display:block}
+
+  /* ── Layout ── */
+  .layout{display:grid;grid-template-columns:340px 1fr;gap:56px;align-items:start}
+
+  /* ── Section label ── */
+  .sec-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--navy);font-weight:700;padding-bottom:10px;border-bottom:1px solid var(--ink);margin-bottom:20px;display:flex;justify-content:space-between;align-items:baseline}
+  .sec-label .n{font-family:var(--mono);color:var(--muted);font-weight:400;letter-spacing:.04em}
+
+  /* ── Sidebar / Form ── */
+  .sidebar{position:sticky;top:24px}
+  .field{padding:14px 0;border-bottom:1px solid var(--rule)}
+  .field:last-of-type{border-bottom:none}
+  .field label{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;color:var(--ink-2);margin-bottom:8px;font-weight:500}
+  .field label .hint{font-size:10px;color:var(--muted);font-weight:400;letter-spacing:.02em}
+  .input-wrap{position:relative}
+  .input-prefix{position:absolute;left:0;top:50%;transform:translateY(-50%);color:var(--muted);font-family:var(--mono);font-size:14px;pointer-events:none}
+  input[type=text],input[type=number],select{width:100%;background:transparent;border:none;border-bottom:1px solid var(--rule-2);padding:6px 0 8px 18px;font-family:var(--mono);font-size:17px;color:var(--ink);outline:none;transition:border-color .15s;appearance:none;-webkit-appearance:none;font-variant-numeric:tabular-nums}
+  select{padding-left:0;font-family:var(--sans);font-size:14px;cursor:pointer;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none'><path d='M1 1l4 4 4-4' stroke='%2364748B' stroke-width='1.2' stroke-linecap='round'/></svg>");background-repeat:no-repeat;background-position:right 2px center;padding-right:20px}
+  input:focus,select:focus{border-color:var(--navy)}
+  input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+
+  /* ── Ranges ── */
+  .range-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+  .range-head .val{font-family:var(--mono);font-size:15px;color:var(--navy);font-weight:600;font-variant-numeric:tabular-nums}
+  .range-wrap{position:relative;height:22px}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;background:transparent;position:absolute;top:0;left:0;height:22px;margin:0;padding:0;cursor:pointer}
+  input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--rule-2);margin-top:10px}
+  input[type=range]::-moz-range-track{height:2px;background:var(--rule-2)}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;background:var(--navy);border-radius:50%;margin-top:-6px;border:2px solid var(--paper);box-shadow:0 0 0 1px var(--navy)}
+  input[type=range]::-moz-range-thumb{width:14px;height:14px;background:var(--navy);border-radius:50%;border:2px solid var(--paper);box-shadow:0 0 0 1px var(--navy)}
+  .range-ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:6px;font-variant-numeric:tabular-nums}
+
+  /* ── Button ── */
+  .btn-run{width:100%;margin-top:20px;background:var(--navy);color:#fff;border:none;padding:14px 0;font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .15s;display:flex;justify-content:center;align-items:center;gap:10px}
+  .btn-run:hover{background:#152b66}
+  .btn-run .arr{font-family:var(--mono);font-weight:400}
+
+  /* ── Results container ── */
+  .results{display:flex;flex-direction:column;gap:48px}
+
+  /* ── Verdict hero ── */
+  .verdict{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:end;padding-bottom:36px;border-bottom:1px solid var(--rule)}
+  .verdict-l{min-width:0}
+  .verdict-kick{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em;margin-bottom:14px;display:flex;gap:14px;flex-wrap:wrap}
+  .verdict-kick strong{color:var(--ink);font-weight:600}
+  .verdict-word{font-size:80px;line-height:.95;letter-spacing:-0.035em;font-weight:500;margin-bottom:14px}
+  .verdict-word.ok{color:var(--ok)}.verdict-word.warn{color:var(--warn)}.verdict-word.alert{color:var(--alert)}
+  .verdict-sub{font-size:15px;color:var(--ink-2);line-height:1.55;max-width:540px}
+  .verdict-sub strong{color:var(--ink);font-weight:600}
+
+  /* ── Score dial ── */
+  .score{display:flex;flex-direction:column;align-items:center;gap:8px;padding-left:40px;border-left:1px solid var(--rule)}
+  .score-dial{position:relative;width:130px;height:130px}
+  .score-dial svg{transform:rotate(-90deg)}
+  .score-dial .t{stroke:var(--rule);fill:none;stroke-width:2}
+  .score-dial .f{fill:none;stroke-width:2;stroke-linecap:round;transition:stroke-dashoffset .8s cubic-bezier(.22,.61,.36,1)}
+  .score-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .score-num{font-size:42px;font-weight:500;letter-spacing:-0.03em;line-height:1;font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .score-of{font-size:11px;color:var(--muted);margin-top:2px;font-family:var(--mono);letter-spacing:.1em}
+  .score-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-top:4px}
+
+  /* ── Key figures ── */
+  .figs{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+  .fig{padding:22px 26px;border-left:1px solid var(--rule)}
+  .fig:first-child{border-left:none;padding-left:0}
+  .fig-l{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:12px}
+  .fig-v{font-size:32px;font-weight:500;letter-spacing:-0.02em;line-height:1;font-family:var(--mono);font-variant-numeric:tabular-nums;margin-bottom:8px}
+  .fig-v small{font-size:16px;color:var(--muted)}
+  .fig-d{font-size:12px;color:var(--muted);line-height:1.4}
+  .fig-d strong{color:var(--ink-2);font-weight:600}
+
+  /* ── Bar chart ── */
+  .bar-frame{position:relative;height:130px;margin:28px 0 10px}
+  .bar-axis{position:absolute;left:0;right:0;bottom:38px;height:1px;background:var(--ink)}
+  .bar-iqr{position:absolute;bottom:38px;height:34px;background:var(--blue-soft);border-top:1px solid var(--navy);border-bottom:1px solid var(--navy);transform:translateY(-50%)}
+  .bar-median{position:absolute;bottom:38px;width:2px;height:52px;background:var(--navy);transform:translate(-50%,-50%) translateY(-26px)}
+  .bar-median-lbl{position:absolute;bottom:100px;transform:translateX(-50%);font-family:var(--mono);font-size:10px;color:var(--navy);font-weight:600;white-space:nowrap}
+  .bar-median-lbl::after{content:"";position:absolute;top:14px;left:50%;width:1px;height:6px;background:var(--navy)}
+  .bar-price{position:absolute;bottom:20px;width:13px;height:13px;transform:translate(-50%,50%) rotate(45deg)}
+  .bar-price.ok{background:var(--ok)}.bar-price.warn{background:var(--warn)}.bar-price.alert{background:var(--alert)}.bar-price.navy{background:var(--navy)}
+  .bar-price-lbl{position:absolute;bottom:2px;transform:translateX(-50%);font-family:var(--mono);font-size:11px;font-weight:600;white-space:nowrap}
+  .bar-price-lbl.ok{color:var(--ok)}.bar-price-lbl.warn{color:var(--warn)}.bar-price-lbl.alert{color:var(--alert)}.bar-price-lbl.navy{color:var(--navy)}
+  .bar-axis-labels{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--muted);padding-top:6px;font-variant-numeric:tabular-nums}
+  .bar-legend{display:flex;gap:24px;flex-wrap:wrap;margin-top:20px;padding-top:16px;border-top:1px solid var(--rule);font-size:12px;color:var(--muted)}
+  .bar-legend .item{display:flex;align-items:center;gap:8px}
+  .bar-legend .sq{width:14px;height:10px;background:var(--blue-soft);border:1px solid var(--navy)}
+  .bar-legend .ln{width:14px;height:2px;background:var(--navy)}
+  .bar-legend .dm{width:8px;height:8px;transform:rotate(45deg);background:var(--ink)}
+
+  /* ── Peer table ── */
+  .rank-table{width:100%;border-collapse:collapse}
+  .rank-table th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:left;padding:10px 0;border-bottom:1px solid var(--ink);font-family:var(--sans)}
+  .rank-table th.n{text-align:right}
+  .rank-table td{padding:10px 0;border-bottom:1px solid var(--rule);font-size:13px;color:var(--ink-2)}
+  .rank-table td.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .rank-table tr.you td{color:var(--navy);font-weight:600;background:var(--blue-tint)}
+  .rank-table tr.you td:first-child{padding-left:10px;position:relative}
+  .rank-table tr.you td:first-child::before{content:"▸";position:absolute;left:-2px;color:var(--navy)}
+  .td-bar{width:28%;padding-right:12px}
+  .mini-bar{height:4px;background:var(--rule);position:relative}
+  .mini-bar .fill{position:absolute;top:0;left:0;bottom:0;background:var(--navy)}
+  tr.you .mini-bar .fill{background:var(--blue)}
+
+  /* ── Affordability ── */
+  .afford-grid{display:grid;grid-template-columns:1fr 260px;gap:48px;align-items:center}
+  .afford-bar{position:relative;height:30px;background:linear-gradient(90deg,#DCFCE7 0%,#DCFCE7 60%,#FEF3C7 60%,#FEF3C7 80%,#FEE2E2 80%,#FEE2E2 100%);border:1px solid var(--rule-2)}
+  .afford-zones{display:flex;font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:6px;letter-spacing:.04em}
+  .afford-zones .z.ok{width:60%;color:var(--ok)}.afford-zones .z.mid{width:20%;color:var(--warn)}.afford-zones .z.bad{width:20%;color:var(--alert)}
+  .afford-marker{position:absolute;top:-6px;bottom:-6px;width:3px;background:var(--ink);transform:translateX(-50%)}
+  .afford-marker::before{content:"";position:absolute;top:-8px;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--ink)}
+  .afford-read .big{display:block;font-family:var(--mono);font-size:38px;font-weight:500;letter-spacing:-0.02em;margin-bottom:6px;font-variant-numeric:tabular-nums}
+  .afford-read{font-size:13px;color:var(--ink-2);line-height:1.6}
+  .afford-read strong{color:var(--ink);font-weight:600}
+
+  /* ── Formula ── */
+  .formula{background:var(--blue-tint);border-left:3px solid var(--navy);padding:20px 24px;margin-top:32px;font-family:var(--mono);font-size:13px;color:var(--ink-2);line-height:1.8;letter-spacing:.01em}
+  .formula .eq{font-size:15px;color:var(--ink);margin:6px 0}
+  .formula var{font-style:italic;color:var(--navy);font-weight:600}
+
+  /* ── Callout ── */
+  .callout{background:var(--blue-tint);border-left:3px solid var(--navy);padding:16px 20px;font-size:13px;color:var(--ink-2);line-height:1.65;margin-top:24px}
+  .callout strong{color:var(--ink);font-weight:600}
+
+  /* ── Stress test ── */
+  .stress-row{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px;color:var(--ink-2)}
+  .stress-row:last-child{border-bottom:none}
+  .stress-row .sv{font-family:var(--mono);font-size:15px;font-weight:600;color:var(--ink)}
+  .stress-row.warn .sv{color:var(--warn)}.stress-row.alert .sv{color:var(--alert)}
+
+  /* ── Forecast ── */
+  .fcast-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-bottom:24px}
+  .fcast-box{padding:20px 24px;border-left:1px solid var(--rule)}
+  .fcast-box:first-child{border-left:none;padding-left:0}
+
+  /* ── Badge ── */
+  .badge{display:inline-block;padding:3px 10px;font-size:11px;font-weight:600;letter-spacing:.05em;font-family:var(--sans)}
+  .badge.ok{background:#DCFCE7;color:var(--ok)}.badge.warn{background:#FEF3C7;color:var(--warn)}.badge.alert{background:#FEE2E2;color:var(--alert)}.badge.blue{background:var(--blue-soft);color:var(--navy)}
+
+  /* ── National compare strip ── */
+  .nat-strip{position:relative;height:64px;margin:24px 0 8px}
+  .nat-axis{position:absolute;left:0;right:0;top:30px;height:1px;background:var(--ink)}
+  .nat-bar{position:absolute;top:22px;height:16px;background:var(--blue-soft);opacity:.6}
+  .nat-tick{position:absolute;top:20px;width:2px;height:20px}
+  .nat-lbl{position:absolute;font-size:9px;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;transform:translateX(-50%)}
+
+  /* ── Empty state ── */
+  .empty{padding:72px 40px;text-align:center;color:var(--muted);border:1px dashed var(--rule-2)}
+  .empty h3{font-size:20px;font-weight:500;color:var(--ink);margin-bottom:10px;letter-spacing:-0.01em}
+  .empty p{font-size:13px;line-height:1.6;max-width:400px;margin:0 auto}
+
+  /* ── Footer ── */
+  .foot{margin-top:64px;padding:20px 0;border-top:1px solid var(--rule);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:11px;color:var(--muted);letter-spacing:.02em}
+  .foot .mark{font-weight:700;color:var(--ink);letter-spacing:.06em;text-transform:uppercase;font-size:10px}
+
+  /* ── Region Compare ── */
+  .mode-toggle{display:flex;border:1px solid var(--rule-2);overflow:hidden}
+  .mode-btn{flex:1;padding:8px 0;border:none;background:transparent;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--muted);cursor:pointer;transition:all .15s;font-family:var(--sans)}
+  .mode-btn.active{background:var(--navy);color:#fff}
+  .tag-pool{display:flex;flex-wrap:wrap;gap:6px;min-height:26px;margin-bottom:8px}
+  .r-tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px 3px 10px;border:1.5px solid;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+  .r-tag-x{border:none;background:none;cursor:pointer;font-size:14px;line-height:1;padding:0 0 0 4px;color:inherit;opacity:.6;font-weight:400}
+  .r-tag-x:hover{opacity:1}
+  .sidebar-head{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:14px;border-bottom:1px solid var(--rule);margin-bottom:2px}
+  .sidebar-title{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--navy);font-weight:700}
+  .sidebar-num{font-family:var(--mono);font-size:11px;color:var(--muted)}
+
+  /* ── Animations ── */
+  .fade-in{animation:fi .4s ease both}
+  .fade-in:nth-child(1){animation-delay:0s}.fade-in:nth-child(2){animation-delay:.07s}
+  .fade-in:nth-child(3){animation-delay:.14s}.fade-in:nth-child(4){animation-delay:.21s}
+  .fade-in:nth-child(5){animation-delay:.28s}.fade-in:nth-child(6){animation-delay:.35s}
+  @keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ── Responsive ── */
+  @media(max-width:1000px){.layout{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.method{grid-template-columns:repeat(2,1fr)}.method-item:nth-child(3){border-left:none;padding-left:0}}
+  @media(max-width:760px){body{padding:20px 16px 40px}.figs{grid-template-columns:repeat(2,1fr)}.fig:nth-child(3){border-left:none;padding-left:0}.verdict{grid-template-columns:1fr}.score{padding-left:0;border-left:none;border-top:1px solid var(--rule);padding-top:20px}.afford-grid{grid-template-columns:1fr}.fcast-grid{grid-template-columns:1fr}.hero h1{font-size:38px}.verdict-word{font-size:52px}.tab-btn{padding:10px 14px;font-size:10px}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ── Masthead ── -->
+<div class="masthead">
+  <div class="mast-l">
+    <span class="mast-mark">University of Aberdeen</span>
+    <span class="mast-sep"></span>
+    <span class="mast-c">School of Mathematics · Final Year Project · 2026</span>
+  </div>
+  <div class="mast-r" id="mastDate">Vol. I · Iss. 01</div>
+</div>
+
+<!-- ── Hero ── -->
+<header class="hero">
+  <div>
+    <div class="hero-kicker">A Statistical Framework</div>
+    <h1>An empirical guide to <em>buying property</em> across the United Kingdom.</h1>
+    <p class="hero-lead">Using a quartile-based distribution across 108 counties and an amortisation model for affordability, this tool classifies any listing against its local market and the buyer's financial capacity.</p>
+  </div>
+  <aside class="hero-abs">
+    <span class="lbl">Abstract</span>
+    We combine county-level price percentiles with a standard mortgage amortisation model to produce a composite score bounded in [0, 100]. Decision thresholds follow FCA affordability guidance (30%/40% of gross income) and quartile-based deviation from local medians.
+  </aside>
+</header>
+
+<!-- ── Method strip ── -->
+<div class="method">
+  <div class="method-item">
+    <div class="method-n">§ 01</div>
+    <div class="method-t">Area Explorer</div>
+    <div class="method-d">County statistics, price trends, and national comparison.</div>
+  </div>
+  <div class="method-item">
+    <div class="method-n">§ 02</div>
+    <div class="method-t">Fair Pricing</div>
+    <div class="method-d">Listed price vs. local Q25, median, Q75 with composite score.</div>
+  </div>
+  <div class="method-item">
+    <div class="method-n">§ 03</div>
+    <div class="method-t">Mortgage Planner</div>
+    <div class="method-d">Amortisation, affordability ratio, stress test and 5-yr forecast.</div>
+  </div>
+  <div class="method-item">
+    <div class="method-n">§ 04</div>
+    <div class="method-t">Region Compare</div>
+    <div class="method-d">Compare up to 5 UK regions or counties — price index, nominal prices and fair value gap.</div>
+  </div>
+</div>
+
+<!-- ── Tab navigation ── -->
+<nav class="tab-nav">
+  <button class="tab-btn active" data-tab="area">§ 01 · Area Explorer</button>
+  <button class="tab-btn" data-tab="pricing">§ 02 · Fair Pricing</button>
+  <button class="tab-btn" data-tab="mortgage">§ 03 · Mortgage Planner</button>
+  <button class="tab-btn" data-tab="compare">§ 04 · Region Compare</button>
+</nav>
+
+<!-- ════════════════════════════════════════════════
+     TAB 1 — AREA EXPLORER
+════════════════════════════════════════════════ -->
+<div class="tab-panel active" id="panel-area">
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sec-label">Select Area <span class="n">§01</span></div>
+      <div class="field">
+        <label>County <span class="hint" id="countyChip"></span></label>
+        <select id="sel-area"></select>
+      </div>
+      <button class="btn-run" id="btn-area">Explore area <span class="arr">→</span></button>
+    </aside>
+    <main id="results-area">
+      <div class="empty">
+        <h3>Select a county to begin</h3>
+        <p>Choose a county from the panel to explore local market statistics, price trends, and mortgage estimates.</p>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     TAB 2 — FAIR PRICING
+════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel-pricing">
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sec-label">Parameters <span class="n">§02</span></div>
+      <div class="field">
+        <label>County <span class="hint" id="countyCount2"></span></label>
+        <select id="sel-pricing"></select>
+      </div>
+      <div class="field">
+        <label>Listed price <span class="hint">GBP</span></label>
+        <div class="input-wrap"><span class="input-prefix">£</span>
+          <input type="number" id="askingPrice" value="350000" min="0" step="1000"/></div>
+      </div>
+      <div class="field">
+        <label>Annual gross income <span class="hint">GBP / yr</span></label>
+        <div class="input-wrap"><span class="input-prefix">£</span>
+          <input type="number" id="income" value="75000" min="0" step="1000"/></div>
+      </div>
+      <div class="field">
+        <label>Deposit <span class="hint">GBP</span></label>
+        <div class="input-wrap"><span class="input-prefix">£</span>
+          <input type="number" id="deposit" value="50000" min="0" step="1000"/></div>
+      </div>
+      <div class="field">
+        <div class="range-head"><label style="margin:0">Mortgage rate</label><span class="val" id="rateDisplay">5.2%</span></div>
+        <div class="range-wrap"><input type="range" id="rateSlider" min="1" max="10" step="0.1" value="5.2"/></div>
+        <div class="range-ticks"><span>1.0%</span><span>5.5%</span><span>10.0%</span></div>
+      </div>
+      <div class="field">
+        <div class="range-head"><label style="margin:0">Term</label><span class="val" id="yearsDisplay">25 yrs</span></div>
+        <div class="range-wrap"><input type="range" id="yearsSlider" min="5" max="35" step="1" value="25"/></div>
+        <div class="range-ticks"><span>5 yrs</span><span>20 yrs</span><span>35 yrs</span></div>
+      </div>
+      <button class="btn-run" id="analyseBtn">Run analysis <span class="arr">→</span></button>
+    </aside>
+    <main class="results" id="results-pricing">
+      <div class="empty">
+        <h3>Run an analysis</h3>
+        <p>Enter a county, listed price, income, and deposit to receive a full property assessment.</p>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     TAB 3 — MORTGAGE PLANNER
+════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel-mortgage">
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sec-label">Your Details <span class="n">§03</span></div>
+      <div class="field">
+        <label>Property price <span class="hint">GBP</span></label>
+        <div class="input-wrap"><span class="input-prefix">£</span>
+          <input type="number" id="m-price" value="350000" min="0" step="1000"/></div>
+      </div>
+      <div class="field">
+        <label>Deposit <span class="hint">GBP</span></label>
+        <div class="input-wrap"><span class="input-prefix">£</span>
+          <input type="number" id="m-deposit" value="50000" min="0" step="1000"/></div>
+      </div>
+      <div class="field">
+        <label>Annual gross income <span class="hint">GBP / yr</span></label>
+        <div class="input-wrap"><span class="input-prefix">£</span>
+          <input type="number" id="m-income" value="75000" min="0" step="1000"/></div>
+      </div>
+      <div class="field">
+        <div class="range-head"><label style="margin:0">Interest rate</label><span class="val" id="m-rate-val">5.2%</span></div>
+        <div class="range-wrap"><input type="range" id="m-rate" min="1" max="10" step="0.1" value="5.2"/></div>
+        <div class="range-ticks"><span>1.0%</span><span>5.5%</span><span>10.0%</span></div>
+      </div>
+      <div class="field">
+        <div class="range-head"><label style="margin:0">Loan term</label><span class="val" id="m-term-val">25 yrs</span></div>
+        <div class="range-wrap"><input type="range" id="m-term" min="5" max="35" step="1" value="25"/></div>
+        <div class="range-ticks"><span>5 yrs</span><span>20 yrs</span><span>35 yrs</span></div>
+      </div>
+      <div class="field">
+        <label>County <span class="hint">optional · for 5-yr forecast</span></label>
+        <select id="m-county"></select>
+      </div>
+      <button class="btn-run" id="btn-mortgage">Calculate <span class="arr">→</span></button>
+    </aside>
+    <main class="results" id="results-mortgage">
+      <div class="empty">
+        <h3>Enter your details</h3>
+        <p>Fill in your property price, deposit, income and rate to see your full mortgage breakdown and 5-year outlook.</p>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     TAB 4 — REGION COMPARE
+════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel-compare">
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <div class="sidebar-title">Compare Regions</div>
+        <div class="sidebar-num" id="rcCountChip">0 selected</div>
+      </div>
+      <div class="field">
+        <label>Mode</label>
+        <div class="mode-toggle" id="rc-mode-toggle">
+          <button class="mode-btn active" data-mode="regions">UK Regions</button>
+          <button class="mode-btn" data-mode="counties">Counties</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Areas <span class="hint">up to 5</span></label>
+        <div class="tag-pool" id="rc-tags"></div>
+        <select id="rc-add"><option value="">— add area —</option></select>
+      </div>
+      <div class="field">
+        <label>Metric</label>
+        <select id="rc-metric">
+          <option value="index">Growth index (base = 100)</option>
+          <option value="price">Average price (£)</option>
+          <option value="gap">Fair value gap (%) — regions only</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Time period</label>
+        <select id="rc-period">
+          <option value="all">Full history</option>
+          <option value="postgfc">Post-GFC (since 2010)</option>
+          <option value="postpan">Post-pandemic (since 2020)</option>
+        </select>
+      </div>
+      <button class="btn-run" id="btn-compare">Compare <span class="arr">→</span></button>
+    </aside>
+    <main class="results" id="results-compare">
+      <div class="empty">
+        <h3>Select areas to compare</h3>
+        <p>Add up to 5 UK regions or counties and compare their price growth, absolute levels, or fair value gaps over time. Regions go back to 2005; counties from 2010.</p>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer class="foot">
+  <div><span class="mark">University of Aberdeen</span> · School of Mathematics · Final Year Project · 2026</div>
+  <div id="footstamp">Data: HM Land Registry · 108 counties · Quartile statistics pre-computed</div>
+</footer>
+
+</div><!-- .page -->
+
+<script src="county_stats.js"></script>
+<script src="reit_data.js"></script>
+
+<script>
+// Guard: make sure the V4 exported data has loaded correctly
+if (typeof COUNTY_STATS === 'undefined') {
+  document.body.innerHTML = `
+    <div style="max-width:700px;margin:4rem auto;padding:2rem;border:1px solid #CBD5E1;font-family:Arial,sans-serif">
+      <h2>county_stats.js not found</h2>
+      <p>
+        This file must be in the same folder as this HTML file.
+        It should be exported from Housing Market v4.ipynb and define COUNTY_STATS.
+      </p>
+    </div>`;
+  throw new Error('COUNTY_STATS not defined');
+}
+
+// ── Helpers ──────────────────────────────────────────────────
+const tc  = s => s.toLowerCase().replace(/(^|\s|-)\w/g, m => m.toUpperCase());
+const fmt = n => '£' + Math.round(n).toLocaleString('en-GB');
+const fmtK = n => n >= 1e6 ? '£' + (n/1e6).toFixed(2) + 'M' : n >= 1e3 ? '£' + Math.round(n/1e3) + 'k' : '£' + Math.round(n);
+const clamp = (v,lo,hi) => Math.min(hi, Math.max(lo, v));
+const bpct  = (v,lo,hi) => Math.max(2, Math.min(98, (v-lo)/(hi-lo)*100));
+
+// ── National stats ────────────────────────────────────────────
+const counties   = Object.keys(COUNTY_STATS).sort();
+const allMedians = counties.map(c => COUNTY_STATS[c].median).sort((a,b)=>a-b);
+const natMedian  = allMedians[Math.floor(allMedians.length/2)];
+const natMin = allMedians[0], natMax = allMedians[allMedians.length-1];
+const totalSales = Object.values(COUNTY_STATS).reduce((s,c)=>s+c.count,0);
+const allRows    = Object.entries(COUNTY_STATS).map(([n,s])=>({name:n,median:s.median})).sort((a,b)=>a.median-b.median);
+const maxMed     = Math.max(...allRows.map(r=>r.median));
+
+// ── Populate selects ─────────────────────────────────────────
+['sel-area','sel-pricing','m-county'].forEach(id => {
+  const sel = document.getElementById(id);
+  if (id === 'm-county') {
+    const o = document.createElement('option'); o.value=''; o.textContent='— none —'; sel.appendChild(o);
+  }
+  counties.forEach(c => {
+    const o = document.createElement('option'); o.value = c; o.textContent = tc(c); sel.appendChild(o);
+  });
+  if (id !== 'm-county') sel.value = 'GREATER LONDON';
+});
+document.getElementById('countyChip').textContent  = counties.length + ' counties';
+document.getElementById('countyCount2').textContent = counties.length + ' counties';
+const tsSel = document.getElementById('totalSales');
+if (tsSel) tsSel.textContent = totalSales.toLocaleString();
+
+// ── Masthead date ─────────────────────────────────────────────
+const nd = new Date();
+document.getElementById('mastDate').textContent = 'Vol. I · Iss. 01 · ' + nd.toLocaleDateString('en-GB',{year:'numeric',month:'short'});
+
+// ── Sliders ───────────────────────────────────────────────────
+document.getElementById('rateSlider').addEventListener('input', e => document.getElementById('rateDisplay').textContent  = (+e.target.value).toFixed(1) + '%');
+document.getElementById('yearsSlider').addEventListener('input',e => document.getElementById('yearsDisplay').textContent = e.target.value + ' yrs');
+document.getElementById('m-rate').addEventListener('input',     e => document.getElementById('m-rate-val').textContent   = (+e.target.value).toFixed(1) + '%');
+document.getElementById('m-term').addEventListener('input',     e => document.getElementById('m-term-val').textContent   = e.target.value + ' yrs');
+
+// ── Tab switching ─────────────────────────────────────────────
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ══════════════════════════════════════════════════════════════
+//  SHARED — SVG Trend Chart
+// ══════════════════════════════════════════════════════════════
+function trendSVG(yearly) {
+  if (!yearly || yearly.length < 2) return '';
+  const W=580,H=165,pL=56,pR=10,pT=10,pB=26;
+  const iW=W-pL-pR, iH=H-pT-pB;
+  const ys=yearly.map(d=>d.median);
+  const minY=Math.min(...ys)*.93, maxY=Math.max(...ys)*1.07;
+  const minX=yearly[0].year, maxX=yearly[yearly.length-1].year;
+  const sx=x=>pL+(x-minX)/(maxX-minX)*iW;
+  const sy=y=>pT+iH-(y-minY)/(maxY-minY)*iH;
+  const pts=yearly.map((d,i)=>`${i===0?'M':'L'}${sx(d.year).toFixed(1)},${sy(d.median).toFixed(1)}`).join(' ');
+  const area=pts+` L${sx(maxX).toFixed(1)},${(pT+iH).toFixed(1)} L${sx(minX).toFixed(1)},${(pT+iH).toFixed(1)} Z`;
+  const yStep=(maxY-minY)/4;
+  const yTicks=Array.from({length:5},(_,i)=>minY+yStep*i);
+  const xTicks=yearly.map(d=>d.year).filter((y,i)=>i===0||i===yearly.length-1||(y-minX)%4===0);
+  return `<svg width="100%" viewBox="0 0 ${W} ${H}" style="display:block;overflow:visible">
+    <defs><linearGradient id="tg" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1E3A8A" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#1E3A8A" stop-opacity="0.01"/>
+    </linearGradient></defs>
+    ${yTicks.map(v=>`<line x1="${pL}" x2="${W-pR}" y1="${sy(v).toFixed(1)}" y2="${sy(v).toFixed(1)}" stroke="#E2E8F0" stroke-width="1"/>`).join('')}
+    ${yTicks.map(v=>`<text x="${pL-4}" y="${(sy(v)+4).toFixed(1)}" text-anchor="end" font-size="9" fill="#64748B" font-family="ui-monospace,monospace">${fmtK(v)}</text>`).join('')}
+    ${xTicks.map(y=>`<text x="${sx(y).toFixed(1)}" y="${H-4}" text-anchor="middle" font-size="9" fill="#64748B" font-family="ui-monospace,monospace">${y}</text>`).join('')}
+    <path d="${area}" fill="url(#tg)"/>
+    <path d="${pts}" fill="none" stroke="#1E3A8A" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    ${yearly.map(d=>`<circle cx="${sx(d.year).toFixed(1)}" cy="${sy(d.median).toFixed(1)}" r="2.8" fill="#1E3A8A"/>`).join('')}
+  </svg>`;
+}
+
+// ══════════════════════════════════════════════════════════════
+//  TAB 1 — AREA EXPLORER
+// ══════════════════════════════════════════════════════════════
+function renderArea(county) {
+  const s = COUNTY_STATS[county];
+  if (!s) return;
+  const { median, q25, q75, count, cagr, market_direction, volatility_label, yearly } = s;
+  const name   = tc(county);
+  const vsPct  = (median - natMedian) / natMedian * 100;
+  const vsSign = vsPct >= 0 ? '+' : '';
+  const cagrCls = cagr >= 0.036 ? 'ok' : cagr >= 0.022 ? 'blue' : 'warn';
+  const natPctV = bpct(natMedian, natMin*.8, natMax*1.1);
+  const ctyPctV = bpct(median,    natMin*.8, natMax*1.1);
+  const r0=5.2/100/12, n0=300;
+  const mpmt = dep => { const loan=median-dep; return loan*(r0*Math.pow(1+r0,n0))/(Math.pow(1+r0,n0)-1); };
+  const pay10 = mpmt(median*.10), pay20 = mpmt(median*.20);
+  const idx = allRows.findIndex(r=>r.name===county);
+
+  document.getElementById('results-area').innerHTML = `<div class="results">
+    <section class="fade-in">
+      <div class="sec-label">${name} <span class="n">§01 · market overview · rank ${idx+1} of ${allRows.length}</span></div>
+      <div class="verdict">
+        <div class="verdict-l">
+          <div class="verdict-kick">
+            <span>HM Land Registry</span><span>·</span>
+            <span><strong>${count.toLocaleString()}</strong> sales on record</span><span>·</span>
+            <span><strong>${vsSign}${vsPct.toFixed(1)}%</strong> vs national median</span>
+          </div>
+          <div style="font-size:68px;line-height:.95;letter-spacing:-0.03em;font-weight:500;color:var(--ink);margin-bottom:14px;font-family:var(--mono)">${fmt(median)}</div>
+          <p class="verdict-sub">Median sale price in ${name}. Typical homes range from <strong>${fmt(q25)}</strong> (Q₁) to <strong>${fmt(q75)}</strong> (Q₃) — an interquartile spread of <strong>${fmt(q75-q25)}</strong>.</p>
+        </div>
+        <div class="score">
+          <div class="fig-l" style="text-align:center;margin-bottom:10px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600">CAGR (est.)</div>
+          <div style="font-size:52px;font-weight:500;letter-spacing:-0.03em;font-family:var(--mono);color:${cagr>=0.036?'var(--ok)':cagr>=0.022?'var(--navy)':'var(--warn)'};font-variant-numeric:tabular-nums">${(cagr*100).toFixed(1)}%</div>
+          <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px">${market_direction}</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Price distribution <span class="n">§01.1</span></div>
+      <div class="figs">
+        <div class="fig"><div class="fig-l">Lower Quartile (Q₁)</div><div class="fig-v">${fmtK(q25)}</div><div class="fig-d">Bottom 25% of sales</div></div>
+        <div class="fig"><div class="fig-l">Median</div><div class="fig-v">${fmtK(median)}</div><div class="fig-d">Mid-market benchmark</div></div>
+        <div class="fig"><div class="fig-l">Upper Quartile (Q₃)</div><div class="fig-v">${fmtK(q75)}</div><div class="fig-d">Top 25% of sales</div></div>
+        <div class="fig"><div class="fig-l">IQR Spread</div><div class="fig-v">${fmtK(q75-q25)}</div><div class="fig-d">${volatility_label}</div></div>
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">National comparison <span class="n">§01.2 · all 108 counties</span></div>
+      <div class="nat-strip">
+        <div class="nat-axis"></div>
+        <div class="nat-bar" style="left:0;right:0;top:22px"></div>
+        <div class="nat-tick" style="left:calc(${natPctV.toFixed(1)}% - 1px);top:20px;background:var(--muted)"></div>
+        <div class="nat-tick" style="left:calc(${ctyPctV.toFixed(1)}% - 1px);top:20px;background:var(--navy)"></div>
+        <div class="nat-lbl" style="left:calc(${natPctV.toFixed(1)}%);bottom:2px;color:var(--muted)">National ${fmtK(natMedian)}</div>
+        <div class="nat-lbl" style="left:calc(${ctyPctV.toFixed(1)}%);top:2px;color:var(--navy);font-weight:600">${name} ${fmtK(median)}</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);font-family:var(--mono)">
+        <span>Cheapest · ${fmtK(natMin)}</span><span>Most expensive · ${fmtK(natMax)}</span>
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Price trend 2010–2024 <span class="n">§01.3 · estimated median by year</span></div>
+      <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+        <span class="badge ${cagrCls}">CAGR est. ${(cagr*100).toFixed(1)}%/yr</span>
+        <span class="badge blue">${volatility_label}</span>
+        <span class="badge ${cagrCls}">${market_direction}</span>
+      </div>
+      <div>${trendSVG(yearly)}</div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Mortgage estimates <span class="n">§01.4 · 5.2% rate · 25 yr term</span></div>
+      <div class="figs">
+        <div class="fig"><div class="fig-l">10% Deposit</div><div class="fig-v">${fmt(pay10)}<small>/mo</small></div><div class="fig-d">Loan: <strong>${fmtK(median*.9)}</strong></div></div>
+        <div class="fig"><div class="fig-l">20% Deposit</div><div class="fig-v">${fmt(pay20)}<small>/mo</small></div><div class="fig-d">Loan: <strong>${fmtK(median*.8)}</strong></div></div>
+        <div class="fig"><div class="fig-l">Monthly saving</div><div class="fig-v">${fmt(pay10-pay20)}<small>/mo</small></div><div class="fig-d">By moving 10→20% deposit</div></div>
+        <div class="fig"><div class="fig-l">Income needed</div><div class="fig-v">${fmtK(pay10*12/.30)}<small>/yr</small></div><div class="fig-d">At 30% income ratio · 10% dep.</div></div>
+      </div>
+      <div class="callout"><strong>Note:</strong> Estimates use a representative 5.2% rate over 25 years. Use the <strong>Mortgage Planner</strong> tab for a personalised calculation including stress testing and 5-year forecast.</div>
+    </section>
+  </div>`;
+}
+
+document.getElementById('sel-area').addEventListener('change', e => renderArea(e.target.value));
+document.getElementById('btn-area').addEventListener('click',  () => renderArea(document.getElementById('sel-area').value));
+
+// ══════════════════════════════════════════════════════════════
+//  TAB 2 — FAIR PRICING
+// ══════════════════════════════════════════════════════════════
+function calcLoan(loan, rate, years) {
+  if (loan <= 0) return 0;
+  const r = rate/100/12, n = years*12;
+  return r === 0 ? loan/n : loan*(r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1);
+}
+
+function runAnalysis(county, price, income, deposit, rate, years) {
+  const s = COUNTY_STATS[county];
+  const { median, q25, q75, count } = s;
+  const loan    = Math.max(0, price - deposit);
+  const payment = calcLoan(loan, rate, years);
+  const ratio   = payment / (income/12);
+  let score = 100;
+  if (price > q75)    score -= 30; else if (price > median) score -= 15;
+  if (ratio > 0.40)   score -= 40; else if (ratio > 0.30)   score -= 20;
+  score = clamp(score, 0, 100);
+  let decision;
+  if (price > q75 && ratio > 0.40) decision = 'High Risk';
+  else if (price > q75) decision = 'Overpriced';
+  else if (ratio > 0.40) decision = 'Unaffordable';
+  else decision = 'Reasonable';
+  return {
+    decision, score, payment, ratio, loan,
+    ltv: price > 0 ? (loan/price)*100 : 0,
+    totalCost: payment*years*12,
+    totalInterest: payment*years*12 - loan,
+    priceStatus: price > q75 ? 'overpriced' : price < q25 ? 'below' : 'typical',
+    affordability: ratio > 0.40 ? 'high-pressure' : ratio > 0.30 ? 'moderate' : 'comfortable',
+    median, q25, q75, count
+  };
+}
+
+function tone(dec) { return dec==='Reasonable'?'ok':dec==='High Risk'?'alert':'warn'; }
+function atone(r)  { return r<=0.30?'ok':r<=0.40?'warn':'alert'; }
+
+function renderPricing(county, price, income, deposit, rate, years) {
+  const r   = runAnalysis(county, price, income, deposit, rate, years);
+  const t   = tone(r.decision), at = atone(r.ratio);
+  const C   = 2*Math.PI*48, offset = C-(r.score/100)*C;
+  const sc  = t==='ok'?'var(--ok)':t==='warn'?'var(--warn)':'var(--alert)';
+  const asc = at==='ok'?'var(--ok)':at==='warn'?'var(--warn)':'var(--alert)';
+  const bMin = Math.min(r.q25*.5, price*.8), bMax = Math.max(r.q75*1.5, price*1.2);
+  const q25p = bpct(r.q25,bMin,bMax), q75p = bpct(r.q75,bMin,bMax);
+  const medp = bpct(r.median,bMin,bMax), prip = bpct(price,bMin,bMax);
+  const amPct = Math.min(100, (r.ratio/.5)*100);
+  const dPct  = (price-r.median)/r.median*100;
+  const idx   = allRows.findIndex(row=>row.name===county);
+  const start = Math.max(0, Math.min(allRows.length-7, idx-3));
+  const peers = allRows.slice(start, start+7);
+
+  document.getElementById('results-pricing').innerHTML = `
+    <section class="verdict fade-in">
+      <div class="verdict-l">
+        <div class="verdict-kick">
+          <span>${tc(county)}</span><span>·</span>
+          <span><strong>${fmt(price)}</strong> listed</span><span>·</span>
+          <span><strong>${dPct>=0?'+':''}${dPct.toFixed(1)}%</strong> vs. county median</span>
+        </div>
+        <div class="verdict-word ${t}">${r.decision}.</div>
+        <p class="verdict-sub">The listing sits <strong>${r.priceStatus==='typical'?'within':r.priceStatus==='overpriced'?'above':'below'}</strong> the interquartile band (${fmtK(r.q25)}–${fmtK(r.q75)}) and produces monthly repayments equal to <strong>${(r.ratio*100).toFixed(1)}%</strong> of gross income — considered <strong>${r.affordability}</strong> by FCA guidance.</p>
+      </div>
+      <div class="score">
+        <div class="score-dial">
+          <svg width="130" height="130" viewBox="0 0 130 130">
+            <circle class="t" cx="65" cy="65" r="48"/>
+            <circle class="f" cx="65" cy="65" r="48" stroke="${sc}" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${offset.toFixed(1)}"/>
+          </svg>
+          <div class="score-inner">
+            <div class="score-num" style="color:${sc}">${r.score}</div>
+            <div class="score-of">/ 100</div>
+          </div>
+        </div>
+        <div class="score-label">Composite score</div>
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Key figures <span class="n">§02 · derived quantities</span></div>
+      <div class="figs">
+        <div class="fig"><div class="fig-l">Monthly instalment</div><div class="fig-v">${fmt(r.payment)}</div><div class="fig-d">over <strong>${years} years</strong> at ${rate.toFixed(1)}%</div></div>
+        <div class="fig"><div class="fig-l">Income ratio</div><div class="fig-v" style="color:${asc}">${(r.ratio*100).toFixed(1)}<small>%</small></div><div class="fig-d"><strong>${r.affordability}</strong> band</div></div>
+        <div class="fig"><div class="fig-l">Loan principal</div><div class="fig-v">${fmtK(r.loan)}</div><div class="fig-d"><strong>${r.ltv.toFixed(1)}%</strong> LTV</div></div>
+        <div class="fig"><div class="fig-l">Total interest</div><div class="fig-v">${fmtK(r.totalInterest)}</div><div class="fig-d">lifetime · ${fmtK(r.totalCost)} repaid</div></div>
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Market position <span class="n">§03 · local quartile distribution</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px">
+        <div style="font-size:18px;font-weight:500;letter-spacing:-0.01em">Where this listing falls in ${tc(county)}</div>
+        <div style="font-size:11px;color:var(--muted);font-family:var(--mono)">n = ${r.count.toLocaleString()} sales</div>
+      </div>
+      <div class="bar-frame">
+        <div class="bar-median-lbl" style="left:${medp}%">Median · ${fmtK(r.median)}</div>
+        <div class="bar-iqr" style="left:${q25p}%;width:${q75p-q25p}%"></div>
+        <div class="bar-axis"></div>
+        <div class="bar-median" style="left:${medp}%"></div>
+        <div class="bar-price ${t}" style="left:${prip}%"></div>
+        <div class="bar-price-lbl ${t}" style="left:${prip}%">You · ${fmtK(price)}</div>
+      </div>
+      <div class="bar-axis-labels"><span>${fmtK(bMin)}</span><span>Q₁ · ${fmtK(r.q25)}</span><span>Q₃ · ${fmtK(r.q75)}</span><span>${fmtK(bMax)}</span></div>
+      <div class="bar-legend">
+        <div class="item"><span class="sq"></span> IQR (Q₁–Q₃, middle 50%)</div>
+        <div class="item"><span class="ln"></span> County median</div>
+        <div class="item"><span class="dm"></span> Listed price</div>
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Peer context <span class="n">§04 · ranked by median price</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px">
+        <div style="font-size:18px;font-weight:500;letter-spacing:-0.01em">${tc(county)} ranks ${idx+1} of ${allRows.length} counties</div>
+        <div style="font-size:11px;color:var(--muted);font-family:var(--mono)">sorted by median · showing neighbours</div>
+      </div>
+      <table class="rank-table">
+        <thead><tr><th style="width:28%">County</th><th class="td-bar"></th><th class="n">Median</th><th class="n">Q₁</th><th class="n">Q₃</th></tr></thead>
+        <tbody>${peers.map(p=>{
+          const st=COUNTY_STATS[p.name], isYou=p.name===county, w=(p.median/maxMed)*100;
+          return `<tr class="${isYou?'you':''}"><td>${tc(p.name)}</td><td class="td-bar"><div class="mini-bar"><div class="fill" style="width:${w}%"></div></div></td><td class="n">${fmtK(p.median)}</td><td class="n">${fmtK(st.q25)}</td><td class="n">${fmtK(st.q75)}</td></tr>`;
+        }).join('')}</tbody>
+      </table>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Affordability <span class="n">§05 · FCA thresholds · 30% / 40%</span></div>
+      <div class="afford-grid">
+        <div>
+          <div class="afford-bar"><div class="afford-marker" style="left:${amPct}%"></div></div>
+          <div class="afford-zones"><div class="z ok">0–30% · comfortable</div><div class="z mid">30–40% · stretch</div><div class="z bad">40%+ · high</div></div>
+        </div>
+        <div class="afford-read">
+          <span class="big" style="color:${asc}">${(r.ratio*100).toFixed(1)}%</span>
+          of monthly gross income — <strong>${r.affordability}</strong>. ${r.ratio<=0.30?'Well within the recommended range.':r.ratio<=0.40?'Approaching the upper limit; a rate shock could push it over.':'Above the FCA stress threshold; most lenders regard this as stretched.'}
+        </div>
+      </div>
+      <div class="formula">
+        <div>Monthly instalment (standard amortisation):</div>
+        <div class="eq">M = <var>P</var> · <var>r</var>(1 + <var>r</var>)<sup><var>n</var></sup> / ((1 + <var>r</var>)<sup><var>n</var></sup> − 1)</div>
+        <div style="font-size:11px;margin-top:4px;color:var(--muted)">where <var>P</var> = loan principal, <var>r</var> = monthly rate, <var>n</var> = total months.</div>
+      </div>
+    </section>`;
+}
+
+document.getElementById('analyseBtn').addEventListener('click', () => {
+  const county  = document.getElementById('sel-pricing').value;
+  const price   = parseFloat(document.getElementById('askingPrice').value);
+  const income  = parseFloat(document.getElementById('income').value);
+  const deposit = parseFloat(document.getElementById('deposit').value);
+  const rate    = parseFloat(document.getElementById('rateSlider').value);
+  const years   = parseInt(document.getElementById('yearsSlider').value);
+  if (!county || isNaN(price) || isNaN(income) || isNaN(deposit)) return;
+  if (deposit >= price) { alert('Deposit must be less than the listed price.'); return; }
+  renderPricing(county, price, income, deposit, rate, years);
+});
+
+// ══════════════════════════════════════════════════════════════
+//  TAB 3 — MORTGAGE PLANNER
+// ══════════════════════════════════════════════════════════════
+function boxMuller() {
+  let u,v;
+  do { u=Math.random(); } while (u===0);
+  do { v=Math.random(); } while (v===0);
+  return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);
+}
+function monteCarlo(start, mu, sigma, yrs=5, n=2000) {
+  const out=[];
+  for (let i=0;i<n;i++) out.push(start*Math.exp((mu-.5*sigma*sigma)*yrs+sigma*Math.sqrt(yrs)*boxMuller()));
+  out.sort((a,b)=>a-b);
+  return { p10:out[Math.floor(n*.10)], median:out[Math.floor(n*.50)], p90:out[Math.floor(n*.90)], probUp:out.filter(v=>v>start).length/n };
+}
+
+function renderMortgage(price, deposit, income, rate, years, county) {
+  const loan    = Math.max(0, price-deposit);
+  const payment = calcLoan(loan, rate, years);
+  const total   = payment*years*12;
+  const interest= total-loan;
+  const ratio   = payment/(income/12);
+  const ltv     = price>0?(loan/price)*100:0;
+  const maxBorrow = income*4.5;
+  const at   = atone(ratio);
+  const asc  = at==='ok'?'var(--ok)':at==='warn'?'var(--warn)':'var(--alert)';
+  const pay1 = calcLoan(loan, rate+1, years);
+  const pay2 = calcLoan(loan, rate+2, years);
+  const dep80extra = Math.max(0, price*.20-deposit);
+  const amPct = Math.min(100, (ratio/.5)*100);
+  const ltvLabel = ltv<=60?'Excellent':ltv<=75?'Good':ltv<=80?'Standard':ltv<=90?'Elevated':'Very High';
+  const ltvHint  = ltv<=60?'Qualifies for the best available rates.':ltv<=75?'Access to competitive rates.':ltv<=80?'Most lenders will have suitable products.':ltv<=90?'Higher risk tier — rates will be elevated.':'Very limited lenders; highest rate tier.';
+
+  let forecastHtml = '';
+  if (county && COUNTY_STATS[county]) {
+    const cs  = COUNTY_STATS[county];
+    const mc  = monteCarlo(price, cs.avg_log_return, cs.volatility);
+    const pc  = mc.probUp>=0.65?'var(--ok)':mc.probUp>=0.50?'var(--warn)':'var(--alert)';
+    forecastHtml = `
+    <section class="fade-in">
+      <div class="sec-label">5-year forecast <span class="n">§07 · Monte Carlo GBM · ${tc(county)} · 2,000 simulations</span></div>
+      <div class="fcast-grid">
+        <div class="fcast-box"><div class="fig-l">Pessimistic (P10)</div><div class="fig-v" style="color:var(--alert)">${fmtK(mc.p10)}</div><div class="fig-d">Low scenario</div></div>
+        <div class="fcast-box"><div class="fig-l">Expected (Median)</div><div class="fig-v">${fmtK(mc.median)}</div><div class="fig-d">Most likely</div></div>
+        <div class="fcast-box"><div class="fig-l">Optimistic (P90)</div><div class="fig-v" style="color:var(--ok)">${fmtK(mc.p90)}</div><div class="fig-d">High scenario</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+        <div>
+          <div class="fig-l" style="margin-bottom:8px">Prob. of appreciation</div>
+          <div style="font-size:44px;font-weight:500;font-family:var(--mono);color:${pc};letter-spacing:-0.02em;font-variant-numeric:tabular-nums">${(mc.probUp*100).toFixed(0)}%</div>
+        </div>
+        <div class="callout" style="flex:1;margin:0">Based on ${tc(county)}'s estimated historical CAGR of <strong>${(cs.cagr*100).toFixed(1)}%/yr</strong> and volatility <strong>${(cs.volatility*100).toFixed(1)}%</strong>. Simulates 2,000 price paths using Geometric Brownian Motion — the same methodology as the full research notebook.</div>
+      </div>
+    </section>`;
+  }
+
+  document.getElementById('results-mortgage').innerHTML = `
+    <section class="verdict fade-in" style="padding-bottom:28px">
+      <div class="verdict-l">
+        <div class="verdict-kick">
+          <span>${rate.toFixed(1)}% interest rate</span><span>·</span>
+          <span>${years}-year term</span><span>·</span>
+          <span>${ltv.toFixed(1)}% LTV</span>
+        </div>
+        <div style="font-size:68px;line-height:.95;letter-spacing:-0.035em;font-weight:500;margin-bottom:14px;font-family:var(--mono);font-variant-numeric:tabular-nums">${fmt(payment)}<span style="font-size:20px;color:var(--muted);font-weight:400">/mo</span></div>
+        <p class="verdict-sub">Monthly repayment on a <strong>${fmtK(loan)}</strong> loan — <strong>${(ratio*100).toFixed(1)}%</strong> of gross monthly income, rated <strong>${ratio<=0.30?'comfortable':ratio<=0.40?'moderate':'high pressure'}</strong> by FCA guidance.</p>
+      </div>
+      <div class="score" style="padding-left:32px">
+        <div class="fig-l" style="text-align:center;margin-bottom:8px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600">Affordability</div>
+        <div style="font-size:44px;font-weight:500;font-family:var(--mono);color:${asc};letter-spacing:-0.02em;font-variant-numeric:tabular-nums">${(ratio*100).toFixed(1)}%</div>
+        <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px">${ratio<=0.30?'Comfortable':ratio<=0.40?'Moderate':'High Pressure'}</div>
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Full breakdown <span class="n">§05 · amortisation summary</span></div>
+      <div class="figs">
+        <div class="fig"><div class="fig-l">Loan amount</div><div class="fig-v">${fmtK(loan)}</div><div class="fig-d"><strong>${ltv.toFixed(1)}%</strong> LTV · <span class="badge ${at}" style="font-size:10px;padding:2px 6px">${ltvLabel}</span></div></div>
+        <div class="fig"><div class="fig-l">Total repaid</div><div class="fig-v">${fmtK(total)}</div><div class="fig-d">over ${years} years</div></div>
+        <div class="fig"><div class="fig-l">Total interest</div><div class="fig-v" style="color:var(--warn)">${fmtK(interest)}</div><div class="fig-d">${((interest/Math.max(loan,1))*100).toFixed(0)}% of loan value</div></div>
+        <div class="fig"><div class="fig-l">Max borrowing</div><div class="fig-v" style="color:${loan<=maxBorrow?'var(--ok)':'var(--alert)'}">${fmtK(maxBorrow)}</div><div class="fig-d">${loan<=maxBorrow?'Loan within range':'Exceeds 4.5× income'}</div></div>
+      </div>
+      <div class="callout"><strong>${ltv.toFixed(1)}% LTV:</strong> ${ltvHint}${dep80extra>0?` Saving an extra <strong>${fmt(dep80extra)}</strong> in deposit would bring you to 80% LTV.`:''}</div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Affordability gauge <span class="n">§06 · FCA thresholds</span></div>
+      <div class="afford-grid">
+        <div>
+          <div class="afford-bar"><div class="afford-marker" style="left:${amPct}%"></div></div>
+          <div class="afford-zones"><div class="z ok">0–30% · comfortable</div><div class="z mid">30–40% · stretch</div><div class="z bad">40%+ · high</div></div>
+        </div>
+        <div class="afford-read">
+          <span class="big" style="color:${asc}">${(ratio*100).toFixed(1)}%</span>
+          ${ratio<=0.30?'Well within the FCA comfort zone.':ratio<=0.40?'Approaching the upper recommended limit.':'Exceeds the FCA stress threshold — consider a larger deposit or longer term.'}
+        </div>
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <div class="sec-label">Rate stress test <span class="n">§06 · sensitivity to rate increases</span></div>
+      <div class="stress-row"><span>Current rate · ${rate.toFixed(1)}%</span><span class="sv">${fmt(payment)}/mo</span></div>
+      <div class="stress-row warn"><span style="color:var(--warn)">+1% → rate rises to ${(rate+1).toFixed(1)}%</span><span class="sv">${fmt(pay1)}/mo <span style="font-size:12px;font-weight:400;color:var(--warn)">+${fmt(pay1-payment)}</span></span></div>
+      <div class="stress-row alert"><span style="color:var(--alert)">+2% → rate rises to ${(rate+2).toFixed(1)}%</span><span class="sv">${fmt(pay2)}/mo <span style="font-size:12px;font-weight:400;color:var(--alert)">+${fmt(pay2-payment)}</span></span></div>
+    </section>
+
+    ${forecastHtml}`;
+}
+
+document.getElementById('btn-mortgage').addEventListener('click', () => {
+  const price   = parseFloat(document.getElementById('m-price').value);
+  const deposit = parseFloat(document.getElementById('m-deposit').value);
+  const income  = parseFloat(document.getElementById('m-income').value);
+  const rate    = parseFloat(document.getElementById('m-rate').value);
+  const years   = parseInt(document.getElementById('m-term').value);
+  const county  = document.getElementById('m-county').value;
+  if (isNaN(price)||isNaN(deposit)||isNaN(income)) return;
+  if (deposit >= price) { alert('Deposit must be less than the property price.'); return; }
+  renderMortgage(price, deposit, income, rate, years, county);
+});
+
+// ══════════════════════════════════════════════════════════════
+//  TAB 4 — REGION COMPARE
+// ══════════════════════════════════════════════════════════════
+var RC_COLORS = ['#1E3A8A','#2F855A','#B45309','#B91C1C','#7C3AED'];
+
+function multiLineSVG(series, metric) {
+  if (!series.length) return '';
+  const W=680, H=230, pL=72, pR=12, pT=12, pB=28;
+  const iW=W-pL-pR, iH=H-pT-pB;
+  const allV = series.flatMap(s=>s.vals.map(v=>v.val));
+  const allY = [...new Set(series.flatMap(s=>s.vals.map(v=>v.y)))].sort();
+  const pad  = metric==='index'?0.055:0.075;
+  const minV = Math.min(...allV)*(1-pad), maxV=Math.max(...allV)*(1+pad);
+  const minX = allY[0], maxX=allY[allY.length-1], span=Math.max(maxX-minX,1);
+  const sx = x=>pL+(x-minX)/span*iW;
+  const sy = y=>pT+iH-(y-minV)/(maxV-minV)*iH;
+  const yTicks = Array.from({length:5},(_,i)=>minV+(maxV-minV)/4*i);
+  const grads = series.map((s,i)=>`<linearGradient id="rcg${i}" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="${s.col}" stop-opacity="0.12"/><stop offset="100%" stop-color="${s.col}" stop-opacity="0.01"/></linearGradient>`).join('');
+  const traces = series.map((s,i)=>{
+    const pts=s.vals, line=pts.map((d,j)=>`${j===0?'M':'L'}${sx(d.y).toFixed(1)},${sy(d.val).toFixed(1)}`).join(' ');
+    const area=line+` L${sx(pts[pts.length-1].y).toFixed(1)},${(pT+iH).toFixed(1)} L${sx(pts[0].y).toFixed(1)},${(pT+iH).toFixed(1)} Z`;
+    const dots=pts.map(d=>`<circle cx="${sx(d.y).toFixed(1)}" cy="${sy(d.val).toFixed(1)}" r="3" fill="${s.col}"/>`).join('');
+    return `<path d="${area}" fill="url(#rcg${i})"/><path d="${line}" fill="none" stroke="${s.col}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>${dots}`;
+  }).join('');
+  const base100 = metric==='index'&&100>=minV&&100<=maxV?`<line x1="${pL}" x2="${W-pR}" y1="${sy(100).toFixed(1)}" y2="${sy(100).toFixed(1)}" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="4,3"/>`:'' ;
+  const base0   = metric==='gap'?`<line x1="${pL}" x2="${W-pR}" y1="${sy(0).toFixed(1)}" y2="${sy(0).toFixed(1)}" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="4,3"/>`:'' ;
+  return `<svg width="100%" viewBox="0 0 ${W} ${H}" style="display:block;overflow:visible">
+    <defs>${grads}</defs>
+    ${yTicks.map(v=>`<line x1="${pL}" x2="${W-pR}" y1="${sy(v).toFixed(1)}" y2="${sy(v).toFixed(1)}" stroke="#E2E8F0" stroke-width="1"/><text x="${pL-4}" y="${(sy(v)+4).toFixed(1)}" text-anchor="end" font-size="9" fill="#64748B" font-family="ui-monospace,monospace">${metric==='index'?Math.round(v):(metric==='gap'?v.toFixed(1)+'%':fmtK(v))}</text>`).join('')}
+    ${allY.filter((_,i)=>i%Math.ceil(allY.length/8)===0||i===allY.length-1).map(y=>`<text x="${sx(y).toFixed(1)}" y="${H-4}" text-anchor="middle" font-size="9" fill="#64748B" font-family="ui-monospace,monospace">${y}</text>`).join('')}
+    ${base100}${base0}${traces}
+  </svg>`;
+}
+
+var rcMode = 'regions';
+var rcSelected = ['London','North West','South East'];
+
+function initCompare() {
+  document.getElementById('rc-mode-toggle').addEventListener('click', e => {
+    const btn = e.target.closest('.mode-btn'); if (!btn) return;
+    rcMode = btn.dataset.mode;
+    document.querySelectorAll('#rc-mode-toggle .mode-btn').forEach(b=>b.classList.toggle('active', b===btn));
+    rcSelected = rcMode==='regions'?['London','North West','South East']:['GREATER LONDON','WEST SUSSEX','WEST YORKSHIRE'];
+    populateRcAdd(); renderRcTags();
+    document.getElementById('rc-metric').querySelector('option[value="gap"]').disabled = (rcMode==='counties');
+    if (rcMode==='counties' && document.getElementById('rc-metric').value==='gap') document.getElementById('rc-metric').value='index';
+  });
+  populateRcAdd(); renderRcTags();
+  document.getElementById('rc-add').addEventListener('change', e => {
+    const v=e.target.value; if(!v) return;
+    if(rcSelected.length>=5){e.target.value='';return;}
+    if(!rcSelected.includes(v)) rcSelected.push(v);
+    renderRcTags(); e.target.value='';
+  });
+  document.getElementById('btn-compare').addEventListener('click', runCompare);
+}
+
+function populateRcAdd() {
+  const sel = document.getElementById('rc-add');
+  sel.innerHTML = '<option value="">— add area —</option>';
+  const list = rcMode==='regions'?REIT_REGIONS:counties;
+  list.forEach(c=>{ const o=document.createElement('option'); o.value=c; o.textContent=tc(c); sel.appendChild(o); });
+}
+
+function renderRcTags() {
+  const pool=document.getElementById('rc-tags');
+  pool.innerHTML = rcSelected.map((r,i)=>`<span class="r-tag" style="border-color:${RC_COLORS[i%5]};color:${RC_COLORS[i%5]}">${tc(r)}<button class="r-tag-x" data-r="${r}">×</button></span>`).join('');
+  pool.querySelectorAll('.r-tag-x').forEach(b=>b.addEventListener('click',()=>{rcSelected=rcSelected.filter(x=>x!==b.dataset.r);renderRcTags();}));
+  document.getElementById('rcCountChip').textContent = rcSelected.length+' selected';
+}
+
+function runCompare() {
+  const metric = document.getElementById('rc-metric').value;
+  const period = document.getElementById('rc-period').value;
+  if (!rcSelected.length) { alert('Select at least one '+(rcMode==='regions'?'region':'county')+'.'); return; }
+  const cutoff = period==='postgfc'?2010:period==='postpan'?2020:0;
+
+  const series = rcSelected.map((name,i)=>{
+    let vals;
+    if (rcMode==='regions') {
+      const hist = (REIT_HISTORY[name]||[]).filter(d=>d.y>=cutoff);
+      if (metric==='gap') {
+        const sc=REIT_SCORING[name]; if(!sc) return null;
+        return {name, col:RC_COLORS[i%5], vals:hist.map(d=>({y:d.y,val:sc.gap}))};
+      }
+      vals = hist.map(d=>({y:d.y, val:d.p}));
+    } else {
+      const s=COUNTY_STATS[name]; if(!s||!s.yearly) return null;
+      vals = s.yearly.filter(d=>d.year>=cutoff).map(d=>({y:d.year,val:d.median}));
+    }
+    if (metric==='index') { const base=vals[0]?.val||1; vals=vals.map(d=>({...d,val:d.val/base*100})); }
+    return {name, col:RC_COLORS[i%5], vals};
+  }).filter(Boolean);
+
+  if (!series.length) return;
+
+  const statsCards = rcSelected.map((name,i)=>{
+    if (rcMode==='regions') {
+      const sc=REIT_SCORING[name]||{};
+      const gap=sc.gap||0, gc=gap<=0?'var(--ok)':'var(--alert)';
+      return `<div class="fig">
+        <div class="fig-l" style="color:${RC_COLORS[i%5]}">${tc(name)}</div>
+        <div class="fig-v" style="font-size:22px">${fmtK(sc.obs||0)}</div>
+        <div class="fig-d">Fair value: <strong>${fmtK(sc.fair||0)}</strong></div>
+        <div class="fig-d" style="margin-top:4px">Gap: <strong style="color:${gc}">${gap>0?'+':''}${gap}%</strong></div>
+        <div class="fig-d">Consumer: <strong>${sc.cs}/100</strong> · REIT: <strong>${sc.rs}/100</strong></div>
+      </div>`;
+    } else {
+      const s=COUNTY_STATS[name]||{}, vs=((s.median-natMedian)/natMedian*100);
+      const cc=s.cagr>=0.036?'var(--ok)':s.cagr>=0.022?'var(--navy)':'var(--warn)';
+      return `<div class="fig">
+        <div class="fig-l" style="color:${RC_COLORS[i%5]}">${tc(name)}</div>
+        <div class="fig-v" style="font-size:22px">${fmtK(s.median||0)}</div>
+        <div class="fig-d">${vs>=0?'+':''}${vs.toFixed(1)}% vs national median</div>
+        <div class="fig-d" style="margin-top:4px">CAGR: <strong style="color:${cc}">${((s.cagr||0)*100).toFixed(1)}%/yr</strong></div>
+      </div>`;
+    }
+  }).join('');
+
+  const pLabel = period==='postgfc'?'Post-GFC (2010–present)':period==='postpan'?'Post-pandemic (2020–present)':'Full history';
+  const mLabel = metric==='index'?'Price index (base = 100)':metric==='gap'?'Fair value gap (%)':'Average price (£)';
+  const note   = metric==='gap'?'<div class="callout"><strong>Note:</strong> Fair value gap is a single estimated point shown as a constant line to enable side-by-side comparison. Positive = overvalued; negative = undervalued relative to calibrated fair value.</div>':metric==='index'?'<div class="callout">All series rebased to 100 at the start of the selected period. Dashed line marks baseline 100.</div>':'';
+
+  document.getElementById('results-compare').innerHTML = `
+    <section class="fade-in">
+      <div class="sec-label">${mLabel} · ${pLabel} <span class="n">${rcSelected.length} ${rcMode==='regions'?'regions':'counties'} · UK housing</span></div>
+      <div style="border:1px solid var(--rule);padding:20px 24px 14px">${multiLineSVG(series,metric)}</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:12px">
+        ${rcSelected.map((n,i)=>`<span style="font-size:11px;font-weight:600;color:${RC_COLORS[i%5]};letter-spacing:.06em;text-transform:uppercase">— ${tc(n)}</span>`).join('')}
+      </div>
+      ${note}
+    </section>
+    <section class="fade-in">
+      <div class="sec-label">Key metrics <span class="n">${rcMode==='regions'?'REIT model · calibrated Apr 2026':'HM Land Registry'}</span></div>
+      <div class="figs" style="grid-template-columns:repeat(${Math.min(rcSelected.length,4)},1fr)">${statsCards}</div>
+    </section>`;
+}
+
+initCompare();
+
+// ── Auto-run on load ──────────────────────────────────────────
+renderArea('GREATER LONDON');
+</script>
+</body>
+</html>
